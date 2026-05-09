@@ -75,11 +75,15 @@ Fin de session →
 
 Cloner le repo :
 
+```bash
 git clone https://github.com/ud20-dev/claude-dev-workflow
+```
 
 Copier le dossier docs/ à la racine de ton projet :
 
+```bash
 cp -r claude-dev-workflow/docs/ ton-projet/docs/
+```
 
 ---
 
@@ -93,4 +97,4 @@ Toutes les contributions sont les bienvenues.
 
 ## Créé par
 
-[UD20-dev](https://github.com/ud20-dev) — We build digital products.
+[UD20-dev](https://github.com/ud20-dev) — Nous créons des produits numériques.
