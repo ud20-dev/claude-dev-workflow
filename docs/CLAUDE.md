@@ -25,3 +25,4 @@
 | PAGES.md | Création ou modification d'une page |
 | COMPONENTS.md | Création ou modification d'un composant |
 | ERRORS.md | Quand un bug apparaît |
+..
