@@ -9,8 +9,14 @@ Un système de documentation structuré pour travailler efficacement avec Claude
 Chaque nouvelle session Claude repart de zéro.
 Aucune mémoire. Aucun contexte. Aucun historique du projet.
 
-Sans système, tu passes les 10 premières minutes à tout réexpliquer —
-et tu gaspilles la majorité de tes tokens avant même de commencer à travailler.
+La plupart des devs créent un seul fichier CLAUDE.md qui regroupe tout —
+le design, les pages, la base de données, les composants, tout.
+
+Le problème : à chaque session Claude lit tout le fichier
+pour trouver l'information dont il a besoin.
+
+Plus le fichier est grand, plus les tokens partent
+avant même que le vrai travail commence.
 
 ---
 
@@ -20,6 +26,14 @@ Un ensemble de fichiers markdown structurés qui donnent à Claude exactement
 ce dont il a besoin, au moment où il en a besoin.
 
 Un fichier par sujet. Pas de bruit. Pas de gaspillage.
+
+---
+
+## Commande de démarrage
+
+Copier cette ligne et la coller à Claude au début de chaque session :
+
+"Lis docs/CLAUDE.md puis docs/PROGRESS.md et dis-moi où on en est en 5 lignes maximum"
 
 ---
 
@@ -41,21 +55,20 @@ Claude ne lit que ce qui est utile pour la tâche en cours.
 | COMPONENTS.md | Composants | Lu avant tout nouveau composant |
 | ERRORS.md | Bugs résolus | Lu quand un bug apparaît |
 
-Si tout était dans un seul fichier — Claude lirait 300 lignes
-pour trouver 10 lignes utiles. Tokens gaspillés. Temps perdu.
+Si tout était dans un seul fichier — Claude lirait tout
+pour trouver une seule information. Tokens gaspillés. Temps perdu.
 
 ---
 
 ## Comment ça fonctionne
 
-Début de session →
-"Lis docs/CLAUDE.md puis docs/PROGRESS.md"
-
-Travailler sur une page →
-"Lis docs/PAGES.md section Login et docs/STYLE.md"
-
-Fin de session →
-"Mets à jour docs/PROGRESS.md pour la session [numéro]"
+| Action | Commande |
+|--------|----------|
+| Début de session | "Lis docs/CLAUDE.md puis docs/PROGRESS.md" |
+| Travailler sur une page | "Lis docs/PAGES.md section [nom] et docs/STYLE.md" |
+| Créer un composant | "Lis docs/COMPONENTS.md et docs/STYLE.md" |
+| Bug rencontré | "Lis docs/ERRORS.md — j'ai ce bug : [description]" |
+| Fin de session | "Mets à jour docs/PROGRESS.md session [numéro]" |
 
 ---
 
@@ -75,15 +88,11 @@ Fin de session →
 
 Cloner le repo :
 
-```bash
 git clone https://github.com/ud20-dev/claude-dev-workflow
-```
 
 Copier le dossier docs/ à la racine de ton projet :
 
-```bash
 cp -r claude-dev-workflow/docs/ ton-projet/docs/
-```
 
 ---
 
