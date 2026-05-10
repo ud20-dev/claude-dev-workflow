@@ -1,12 +1,26 @@
 # DECISIONS
-> Historique des choix techniques du projet.
-> Lire avant de proposer une alternative technique.
-> Instructions : si une solution proposée contredit une décision existante,
-> signaler immédiatement avant de continuer.
-> Format d'ajout : "Ajoute cette décision dans DECISIONS.md — [sujet]"
+> Historique de tous les choix techniques du projet.
+> Lire avant de proposer une solution ou une technologie.
+> Si une proposition contredit une décision existante → signaler avant de continuer.
+> Ne jamais supprimer une décision existante.
+> Format d'ajout : "Ajoute dans DECISIONS.md — [sujet]"
 
-## Format
-### [Sujet] — [Date]
+---
+
+## Template
+```
+### [Sujet] — [JJ/MM/AAAA]
+- Décision :
+- Pourquoi :
+- Alternative refusée :
+- Pourquoi refusée :
+```
+
+---
+
+## Décisions
+
+### [Sujet] — JJ/MM/AAAA
 - Décision :
 - Pourquoi :
 - Alternative refusée :
