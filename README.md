@@ -33,7 +33,9 @@ Un fichier par sujet. Pas de bruit. Pas de gaspillage.
 
 Copier cette ligne et la coller à Claude au début de chaque session :
 
-"Lis docs/CLAUDE.md puis docs/PROGRESS.md et dis-moi où on en est en 5 lignes maximum"
+```
+Lis docs/CLAUDE.md puis docs/PROGRESS.md et dis-moi où on en est en 5 lignes maximum
+```
 
 ---
 
@@ -88,11 +90,15 @@ pour trouver une seule information. Tokens gaspillés. Temps perdu.
 
 Cloner le repo :
 
+```bash
 git clone https://github.com/ud20-dev/claude-dev-workflow
+```
 
 Copier le dossier docs/ à la racine de ton projet :
 
+```bash
 cp -r claude-dev-workflow/docs/ ton-projet/docs/
+```
 
 ---
 
