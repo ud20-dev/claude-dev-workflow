@@ -20,8 +20,4 @@
 
 ## Décisions
 
-### [Sujet] — JJ/MM/AAAA
-- Décision :
-- Pourquoi :
-- Alternative refusée :
-- Pourquoi refusée :
+> Aucune décision enregistrée pour l'instant.

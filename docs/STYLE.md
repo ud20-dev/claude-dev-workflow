@@ -8,40 +8,35 @@
 ---
 
 ## Couleurs
-> Remplir avec les valeurs hex du projet.
 
 | Nom | Valeur | Usage |
 |-----|--------|-------|
-| Primary | [ex: #1a1a2e] | Boutons principaux, liens, accents |
-| Secondary | [ex: #7EEFB2] | Accents secondaires, badges |
-| Background | [ex: #ffffff] | Fond général des pages |
-| Surface | [ex: #f5f5f5] | Fond des cartes et panneaux |
+| Primary | [ex: #0078d4] | Boutons principaux, liens, accents |
+| Background | [ex: #fafafa] | Fond général des pages |
+| Surface | [ex: #ffffff] | Fond des cartes et panneaux |
 | Text principal | [ex: #111111] | Titres et textes importants |
 | Text secondaire | [ex: #666666] | Sous-titres, descriptions |
-| Bordure | [ex: #e0e0e0] | Bordures des inputs, cartes |
-| Erreur | [ex: #ef4444] | Messages d'erreur, champs invalides |
-| Succès | [ex: #22c55e] | Confirmations, validations |
+| Bordure | [ex: #e4e4e4] | Bordures des inputs, cartes |
+| Erreur | [ex: #ef4444] | Messages d'erreur |
+| Succès | [ex: #22c55e] | Confirmations |
 
 ---
 
 ## Typography
-> Une seule font titre et une seule font corps — pas plus.
 
 | Élément | Valeur |
 |---------|--------|
-| Font titre | [ex: Syne] |
-| Font corps | [ex: Inter] |
+| Font titre | [ex: Syne / Inter / sans-serif] |
+| Font corps | [ex: Inter / system-ui] |
 | H1 | [ex: 32px / 700] |
 | H2 | [ex: 24px / 600] |
 | H3 | [ex: 18px / 500] |
 | Corps | [ex: 14px / 400] |
 | Small | [ex: 12px / 400] |
-| Line height | [ex: 1.6] |
 
 ---
 
 ## Espacements
-> Système fixe — ne pas improviser des valeurs différentes.
 
 | Nom | Valeur | Usage |
 |-----|--------|-------|
@@ -50,7 +45,6 @@
 | md | 16px | Espacement standard |
 | lg | 24px | Entre composants |
 | xl | 48px | Entre sections |
-| Padding page | [ex: 24px] | Marge intérieure des pages |
 
 ---
 
@@ -60,22 +54,19 @@
 |---------|--------|
 | Radius bouton | [ex: 8px] |
 | Radius carte | [ex: 12px] |
-| Radius input | [ex: 6px] |
-| Height input | [ex: 44px] |
-| Border | [ex: 1px solid #e0e0e0] |
-| Shadow carte | [ex: 0 1px 3px rgba(0,0,0,0.1)] |
+| Radius input | [ex: 8px] |
+| Bordure input | [ex: 1px solid #e4e4e4] |
 
 ---
 
 ## Boutons
-> Appliquer exactement ces styles — pas de variantes non définies ici.
 
 | Type | Style |
 |------|-------|
-| Primaire | bg-primary, texte blanc, radius bouton |
-| Secondaire | bg-transparent, bordure primary, texte primary |
-| Danger | bg-erreur, texte blanc |
-| Désactivé | opacity 0.5, cursor not-allowed |
+| Primaire | [ex: bg-gray-900 text-white rounded-lg] |
+| Secondaire | [ex: border border-gray-200 text-gray-600 rounded-lg] |
+| Danger | [ex: bg-red-500 text-white rounded-lg] |
+| Désactivé | opacity 0.4, cursor not-allowed |
 
 ---
 
@@ -86,14 +77,35 @@
 | Mobile | 375px |
 | Tablet | 768px |
 | Desktop | 1280px |
-| Large | 1536px |
 
 ---
 
 ## Mode sombre
-> Supprimer cette section si pas de mode sombre prévu.
-
 - Activé : [oui / non]
-- Background dark : [ex: #0f0f0f]
-- Surface dark : [ex: #1a1a1a]
-- Text dark : [ex: #f5f5f5]
+
+---
+
+## Règle CSS — No Camouflage
+> Ne jamais empiler du CSS pour masquer un conflit. Choisir : soit DaisyUI gère tout, soit Tailwind pur — jamais les deux en conflit.
+> Règle complète dans : feedback_no_css_camouflage.md
+
+| ❌ Interdit | ✅ Correct |
+|---|---|
+| `input input-bordered rounded-xl focus:outline-none` | `border border-gray-200 rounded-lg px-3 py-2 focus:outline-none` |
+| `btn btn-neutral` + overrides manuels | classes Tailwind directes |
+| `<div onClick={fn}>` | `<button type="button" onClick={fn}>` |
+| `<span onClick={fn}>` | `<button type="button" onClick={fn}>` |
+| `<div onClick={toggle}>` | `<label>` qui enveloppe la checkbox |
+
+- Toujours utiliser les vrais éléments HTML sémantiques (`<button>`, `<label>`, `<a>`)
+- Ne jamais surcharger les propriétés que DaisyUI gère déjà
+
+---
+
+## Convention par zone
+
+| Zone | Convention |
+|------|-----------|
+| Pages publiques | [ex: Tailwind pur] |
+| Pages admin | [ex: DaisyUI / Tailwind pur] |
+| Composants partagés | [ex: Tailwind pur] |

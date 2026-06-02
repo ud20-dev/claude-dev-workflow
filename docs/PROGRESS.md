@@ -7,7 +7,6 @@
 ---
 
 ## Phases du projet
-> Cocher au fur et à mesure. Ne pas sauter une phase.
 
 - [ ] Phase 1 — Setup & Configuration
 - [ ] Phase 2 — Base de données
@@ -20,34 +19,28 @@
 ---
 
 ## Phase actuelle
-> Mettre à jour à chaque changement de phase.
 
 Phase 1 — Setup & Configuration
 
 ---
 
 ## Progression globale
-> Mettre à jour à chaque session.
 
 [----------] 0%
 
 ---
 
 ## Statut des pages
-> Mettre à jour dès qu'une page change de statut.
 
-| Page | Statut | Session |
-|------|--------|---------|
-| [nom page] | [ ] À faire | - |
-| [nom page] | [ ] À faire | - |
-| [nom page] | [ ] À faire | - |
+| Page | Route | Statut |
+|------|-------|--------|
+| [Page] | / | [ ] À faire |
 
 Légende : [ ] À faire — [~] En cours — [x] Terminée
 
 ---
 
 ## Sessions
-> Ajouter la plus récente en haut. Ne jamais supprimer les anciennes.
 
 ### Session 001 — JJ/MM/AAAA
 - Fait :

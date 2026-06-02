@@ -15,12 +15,10 @@
 ---
 
 ## Template
-> Copier ce template pour chaque nouveau bug résolu.
-
 ```
 ### [Titre court du bug]
 - Date : JJ/MM/AAAA
-- Fichier concerné : [chemin/vers/fichier.tsx]
+- Fichier concerné : [chemin/vers/fichier]
 - Symptôme : [ce qui se passe — message d'erreur exact si possible]
 - Cause : [pourquoi ça arrive]
 - Solution : [ce qu'on a fait pour corriger]
@@ -30,9 +28,4 @@
 
 ## Bugs résolus
 
-### [Titre du bug]
-- Date :
-- Fichier concerné :
-- Symptôme :
-- Cause :
-- Solution :
+> Aucun bug résolu pour l'instant.

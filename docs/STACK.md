@@ -27,8 +27,8 @@
 ## Backend
 > Supprimer ce bloc si pas de backend séparé.
 
-- Runtime : [ex: Node.js / Deno / Bun]
-- Framework : [ex: Express / Fastify / Hono]
+- Runtime : [ex: Node.js / Python]
+- Framework : [ex: FastAPI / Express / Hono]
 - Type API : [ex: REST / GraphQL / tRPC]
 
 ---
@@ -36,44 +36,39 @@
 ## Base de données
 > Supprimer ce bloc si pas de base de données.
 
-- Plateforme : [ex: Supabase / PlanetScale / MongoDB Atlas / Firebase]
-- ORM : [ex: Prisma / Drizzle / aucun]
+- Plateforme : [ex: PostgreSQL / Supabase / MongoDB]
+- ORM : [ex: Prisma / SQLAlchemy / Drizzle / aucun]
 
 ---
 
 ## Authentification
 > Supprimer ce bloc si pas d'authentification.
 
-- Solution : [ex: Supabase Auth / NextAuth / Clerk / Auth0 / custom]
+- Solution : [ex: JWT custom / NextAuth / Clerk / Auth0]
 
 ---
 
 ## Hébergement
-- Frontend : [ex: Vercel / Netlify / Cloudflare Pages]
-- Backend : [ex: Railway / Render / Fly.io / même que frontend]
-- Domaine : [ex: monprojet.com / sous-domaine Vercel pour l'instant]
+- Frontend : [ex: Vercel / Netlify]
+- Backend : [ex: Railway / Render / Fly.io]
+- Domaine : [ex: monprojet.com]
 
 ---
 
 ## Variables d'environnement
 > Ne jamais écrire les valeurs ici — uniquement les noms des variables.
-> Les valeurs vont dans le fichier .env à la racine du projet.
 
 ```
 [NOM_VARIABLE_1]=
 [NOM_VARIABLE_2]=
-[NOM_VARIABLE_3]=
 ```
 
 ---
 
 ## Commandes
-> Mettre à jour si les commandes changent.
 
 | Action | Commande |
 |--------|----------|
 | Installer | [ex: npm install] |
 | Démarrer | [ex: npm run dev] |
 | Build | [ex: npm run build] |
-| Déployer | [ex: git push origin main] |
-| Autre | [ex: npm run lint] |
