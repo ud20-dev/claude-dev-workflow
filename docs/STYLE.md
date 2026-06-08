@@ -11,14 +11,7 @@
 
 | Nom | Valeur | Usage |
 |-----|--------|-------|
-| Primary | [ex: #0078d4] | Boutons principaux, liens, accents |
-| Background | [ex: #fafafa] | Fond général des pages |
-| Surface | [ex: #ffffff] | Fond des cartes et panneaux |
-| Text principal | [ex: #111111] | Titres et textes importants |
-| Text secondaire | [ex: #666666] | Sous-titres, descriptions |
-| Bordure | [ex: #e4e4e4] | Bordures des inputs, cartes |
-| Erreur | [ex: #ef4444] | Messages d'erreur |
-| Succès | [ex: #22c55e] | Confirmations |
+| | | |
 
 ---
 
@@ -26,13 +19,7 @@
 
 | Élément | Valeur |
 |---------|--------|
-| Font titre | [ex: Syne / Inter / sans-serif] |
-| Font corps | [ex: Inter / system-ui] |
-| H1 | [ex: 32px / 700] |
-| H2 | [ex: 24px / 600] |
-| H3 | [ex: 18px / 500] |
-| Corps | [ex: 14px / 400] |
-| Small | [ex: 12px / 400] |
+| | |
 
 ---
 
@@ -52,10 +39,11 @@
 
 | Élément | Valeur |
 |---------|--------|
-| Radius bouton | [ex: 8px] |
-| Radius carte | [ex: 12px] |
-| Radius input | [ex: 8px] |
-| Bordure input | [ex: 1px solid #e4e4e4] |
+| Radius bouton standard | |
+| Radius carte | |
+| Radius input | |
+| Height input | |
+| Bordure input | |
 
 ---
 
@@ -63,10 +51,9 @@
 
 | Type | Style |
 |------|-------|
-| Primaire | [ex: bg-gray-900 text-white rounded-lg] |
-| Secondaire | [ex: border border-gray-200 text-gray-600 rounded-lg] |
-| Danger | [ex: bg-red-500 text-white rounded-lg] |
-| Désactivé | opacity 0.4, cursor not-allowed |
+| Primaire | |
+| Ghost | |
+| Désactivé | `opacity-40 cursor-not-allowed` |
 
 ---
 
@@ -76,36 +63,91 @@
 |-----|--------|
 | Mobile | 375px |
 | Tablet | 768px |
-| Desktop | 1280px |
+| Desktop | 1024px |
+| Large | 1280px |
+
+---
+
+## Layout pages plein écran (login, token, etc.)
+
+- **Conteneur** : `h-dvh` ou `position: fixed; inset: 0` pour bloquer tout scroll
+- **Centrage** : `flex flex-col items-center justify-center`
+- **⚠️ Ne jamais utiliser `min-h-screen`** sur ces pages — `100vh` > viewport visible sur mobile → scroll indésirable
 
 ---
 
 ## Mode sombre
-- Activé : [oui / non]
+
+- Activé : non / oui
 
 ---
 
 ## Règle CSS — No Camouflage
-> Ne jamais empiler du CSS pour masquer un conflit. Choisir : soit DaisyUI gère tout, soit Tailwind pur — jamais les deux en conflit.
-> Règle complète dans : feedback_no_css_camouflage.md
+
+> Ne jamais empiler du CSS pour masquer un conflit. Choisir : soit DaisyUI gère tout, soit Tailwind pur.
 
 | ❌ Interdit | ✅ Correct |
 |---|---|
-| `input input-bordered rounded-xl focus:outline-none` | `border border-gray-200 rounded-lg px-3 py-2 focus:outline-none` |
-| `btn btn-neutral` + overrides manuels | classes Tailwind directes |
+| Classes DaisyUI + overrides Tailwind | Choisir l'un ou l'autre |
 | `<div onClick={fn}>` | `<button type="button" onClick={fn}>` |
 | `<span onClick={fn}>` | `<button type="button" onClick={fn}>` |
-| `<div onClick={toggle}>` | `<label>` qui enveloppe la checkbox |
+| Sélecteur CSS multi-ligne avec `:not()` | Sélecteur complet sur une seule ligne |
 
-- Toujours utiliser les vrais éléments HTML sémantiques (`<button>`, `<label>`, `<a>`)
-- Ne jamais surcharger les propriétés que DaisyUI gère déjà
+---
+
+## Fix obligatoire — Inputs transparents sur mobile (Next.js + DaisyUI v5)
+
+> **Cause** : DaisyUI v5 utilise `oklch()`. Certains navigateurs Android ne supportent pas oklch → fond transparent, texte invisible.
+
+**Triple protection dans `globals.css` (ne jamais supprimer ni modifier) :**
+
+```css
+/* 1. Règle hors @layer — priorité absolue. SÉLECTEUR SUR UNE SEULE LIGNE. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
+select,
+textarea {
+  background-color: #ffffff !important;
+  color: #111111 !important;
+  -webkit-text-fill-color: #111111 !important;
+}
+
+/* 2. Fix autofill Android Chrome — box-shadow inset 1000px */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #111111 !important;
+  color: #111111 !important;
+}
+
+/* 3. Fallbacks hex après @plugin daisyui/theme */
+:root {
+  --color-base-100: #ffffff;
+  --color-base-content: #111111;
+}
+```
+
+> **⚠️ CRITIQUE** : ne jamais couper le sélecteur `:not()` avec un retour à la ligne — un newline dans un sélecteur CSS crée un combinateur descendant et la règle ne s'applique à rien.
+
+> Tout `<input>`, `<select>`, `<textarea>` ajouté doit aussi avoir `bg-white` en className Tailwind.
+
+---
+
+## Règles mobile — Touch targets
+
+| Élément | Taille minimale |
+|---------|----------------|
+| Input / Select | height ≈ 44px — `py-2.5 text-sm` |
+| Bouton action (icône) | 36×36px (`w-9 h-9`) |
+| Bouton primaire | `py-2.5` minimum |
+| Bouton icône seule | `p-2` (zone tap ≈ 40px) |
 
 ---
 
 ## Convention par zone
 
-| Zone | Convention |
-|------|-----------|
-| Pages publiques | [ex: Tailwind pur] |
-| Pages admin | [ex: DaisyUI / Tailwind pur] |
-| Composants partagés | [ex: Tailwind pur] |
+| Route | Convention |
+|-------|-----------|
+| | |

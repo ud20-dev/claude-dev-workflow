@@ -1,8 +1,6 @@
 # PROGRESS
-> Suivi des sessions de travail.
 > Lire au début de chaque session sans exception.
-> Ne jamais supprimer une session existante — toujours ajouter en haut.
-> Format de mise à jour : "Mets à jour PROGRESS.md session [numéro]"
+> Ne jamais supprimer une session — toujours ajouter en haut.
 
 ---
 
@@ -11,10 +9,9 @@
 - [ ] Phase 1 — Setup & Configuration
 - [ ] Phase 2 — Base de données
 - [ ] Phase 3 — Authentification
-- [ ] Phase 4 — Pages principales
-- [ ] Phase 5 — Pages secondaires
-- [ ] Phase 6 — Tests
-- [ ] Phase 7 — Déploiement
+- [ ] Phase 4 — Pages
+- [ ] Phase 5 — Tests & finitions interface
+- [ ] Phase 6 — Déploiement
 
 ---
 
@@ -34,9 +31,7 @@ Phase 1 — Setup & Configuration
 
 | Page | Route | Statut |
 |------|-------|--------|
-| [Page] | / | [ ] À faire |
-
-Légende : [ ] À faire — [~] En cours — [x] Terminée
+| | | [ ] À faire |
 
 ---
 
@@ -47,4 +42,4 @@ Légende : [ ] À faire — [~] En cours — [x] Terminée
 - Corrigé :
 - Bloqué sur :
 - Prochaine étape :
-- Fichier à lire en priorité :
+- Fichier à lire en priorité : PROGRESS.md

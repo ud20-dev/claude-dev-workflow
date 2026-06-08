@@ -7,60 +7,57 @@
 
 ---
 
-## Instructions de remplissage
-> Conserver uniquement les technologies utilisées.
-> Supprimer les lignes non utilisées.
-> Ne pas laisser de champs vides — soit rempli, soit supprimé.
-
----
-
 ## Frontend
-> Supprimer ce bloc si pas de frontend.
 
-- Framework : [ex: React / Next.js / Vue / Nuxt / Svelte]
-- Langage : [ex: TypeScript / JavaScript]
-- Style : [ex: Tailwind CSS / CSS Modules / Styled Components]
-- Version Node : [ex: 20.x]
+- Framework :
+- Langage :
+- Style :
+- Version Node :
+- Icônes :
+- Répertoire :
+- Port dev :
 
 ---
 
 ## Backend
-> Supprimer ce bloc si pas de backend séparé.
 
-- Runtime : [ex: Node.js / Python]
-- Framework : [ex: FastAPI / Express / Hono]
-- Type API : [ex: REST / GraphQL / tRPC]
+- Runtime :
+- Framework :
+- Type API :
+- ORM :
+- Migrations :
+- Auth :
+- Répertoire :
+- Port dev :
+- Gestionnaire de paquets :
 
 ---
 
 ## Base de données
-> Supprimer ce bloc si pas de base de données.
 
-- Plateforme : [ex: PostgreSQL / Supabase / MongoDB]
-- ORM : [ex: Prisma / SQLAlchemy / Drizzle / aucun]
+- Plateforme :
+- ORM :
+- URL de connexion :
 
 ---
 
 ## Authentification
-> Supprimer ce bloc si pas d'authentification.
 
-- Solution : [ex: JWT custom / NextAuth / Clerk / Auth0]
+- Solution :
 
 ---
 
 ## Hébergement
-- Frontend : [ex: Vercel / Netlify]
-- Backend : [ex: Railway / Render / Fly.io]
-- Domaine : [ex: monprojet.com]
+- Frontend :
+- Backend :
+- Domaine :
 
 ---
 
 ## Variables d'environnement
-> Ne jamais écrire les valeurs ici — uniquement les noms des variables.
 
 ```
-[NOM_VARIABLE_1]=
-[NOM_VARIABLE_2]=
+# À compléter selon le projet
 ```
 
 ---
@@ -69,6 +66,10 @@
 
 | Action | Commande |
 |--------|----------|
-| Installer | [ex: npm install] |
-| Démarrer | [ex: npm run dev] |
-| Build | [ex: npm run build] |
+| Installer backend | |
+| Démarrer backend | |
+| Migrer la DB | |
+| Installer frontend | |
+| Démarrer frontend | |
+| Build frontend | |
+| Lint frontend | |

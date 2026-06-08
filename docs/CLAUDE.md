@@ -39,6 +39,7 @@ et dis-moi où on en est en 5 lignes maximum"
 | PAGES.md | Création ou modification d'une page — lire uniquement la section concernée |
 | COMPONENTS.md | Création ou modification d'un composant |
 | ERRORS.md | Quand un bug apparaît — vérifier si déjà résolu |
+| SECURITY.md | Avant/après tout travail de sécurité — liste des failles à corriger |
 
 ---
 

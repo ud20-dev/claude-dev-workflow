@@ -20,4 +20,3 @@
 
 ## Décisions
 
-> Aucune décision enregistrée pour l'instant.
