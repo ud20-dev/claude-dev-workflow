@@ -43,7 +43,7 @@ Lis docs/CLAUDE.md puis docs/PROGRESS.md et dis-moi où on en est en 5 lignes ma
 ## Pourquoi tout est séparé
 
 Chaque fichier a un rôle unique et précis.
-Claude ne lit que ce qui est utile pour la tâche en cours.
+Claude ne lit que ce qui est utile pour la tâche en cours...
 
 | Fichier | Rôle | Pourquoi séparé |
 |---------|------|-----------------|
