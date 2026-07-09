@@ -12,6 +12,7 @@
 - Framework :
 - Langage :
 - Style :
+- Preset de style installé : [ex. "tailwind-daisyui" — informatif, la source de vérité reste frontend/preset-actif.md]
 - Version Node :
 - Icônes :
 - Répertoire :

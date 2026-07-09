@@ -27,11 +27,20 @@ Phase 1 — Setup & Configuration
 
 ---
 
-## Statut des pages
+## Statut frontend — Pages
 > Source unique du statut d'avancement — frontend/PAGES.md ne documente que la spec de chaque page.
 
 | Page | Route | Statut |
 |------|-------|--------|
+| | | [ ] À faire |
+
+---
+
+## Statut backend — Endpoints & migrations
+> Source unique du statut d'avancement — backend/DATABASE.md ne documente que le schéma, pas l'avancement.
+
+| Endpoint / Migration | Détail | Statut |
+|-----------------------|--------|--------|
 | | | [ ] À faire |
 
 ---

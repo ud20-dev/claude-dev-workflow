@@ -3,7 +3,13 @@
 > Lire obligatoirement avant toute création ou modification d'interface.
 > Appliquer exactement ces valeurs — aucune interprétation personnelle.
 > Ne jamais utiliser une couleur, font ou valeur absente de ce fichier.
-> Format d'ajout : "Mets à jour STYLE.md — [élément] [valeur]"
+> Format d'ajout : "Mets à jour frontend/STYLE.md — [élément] [valeur]"
+
+---
+
+## Preset de stack
+> Ce fichier est neutre — aucune valeur ici ne suppose Tailwind, DaisyUI, React, etc. Toujours lu avec `frontend/preset-actif.md` (le preset installé pour ce projet — installation détaillée dans `CLAUDE.md`, catalogue dans `frontend/presets/`).
+> `preset-actif.md` absent ? Demander quel preset installer avant de coder une valeur stack-spécifique — ne jamais improviser.
 
 ---
 
@@ -42,6 +48,7 @@
 ---
 
 ## Composants UI
+> Source unique — ne pas improviser (voir CLAUDE.md > Règles absolues). Cas nouveau → l'ajouter ici d'abord, coder ensuite.
 
 | Élément | Valeur |
 |---------|--------|
@@ -55,12 +62,28 @@
 ---
 
 ## Boutons
+> Ces types couvrent tous les boutons du projet — même règle que Composants UI.
 
 | Type | Style |
 |------|-------|
 | Primaire | |
 | Ghost | |
-| Désactivé | `opacity-40 cursor-not-allowed` |
+| Désactivé | *(voir frontend/preset-actif.md)* |
+
+---
+
+## États UI
+> Comportement standard des états qui reviennent sur toutes les pages avec des données async — pour éviter de réinventer (et de re-casser) le loading/l'erreur/le vide à chaque nouvelle page. Contexte des bugs que ça évite : voir frontend/ERRORS.md ("loading infini", "render crash si API retourne un objet non-tableau") et frontend/FEEDBACK.md.
+
+| État | Comportement standard | Règle |
+|------|------------------------|-------|
+| Chargement | | Toujours dans un `try/catch` — `setLoading(false)` doit s'exécuter même si `fetch()` lève une exception |
+| Erreur | | Message d'erreur + bouton "Réessayer" — jamais un écran blanc ou un loading bloqué indéfiniment |
+| Vide (liste sans résultat) | | Distinct visuellement de l'état erreur — l'absence de données n'est pas un échec |
+| Succès / donnée chargée | | `Array.isArray(data) ? data : []` avant tout `.map()` sur une réponse API — ne jamais assumer que l'API renvoie toujours un tableau |
+| Formulaire invalide | | `noValidate` sur le `<form>` — la validation custom gère tous les messages d'erreur, jamais le navigateur natif |
+
+> Colonne "Comportement standard" à remplir en session 1 avec les valeurs concrètes du projet (ex. skeleton vs spinner, toast vs bannière inline) — la colonne "Règle" est générique et ne se modifie pas.
 
 ---
 
@@ -75,74 +98,55 @@
 
 ---
 
+## Mise en page — Conteneur & grille
+> Source unique pour l'agencement — même règle que Composants UI.
+
+| Élément | Valeur |
+|---------|--------|
+| Largeur max page de contenu | |
+| Largeur max carte / formulaire | |
+| Colonnes grille desktop | |
+| Padding latéral mobile | |
+
+---
+
+## Mise en page — Formulaires
+> Convention unique pour tous les formulaires du projet.
+
+| Règle | Valeur |
+|-------|--------|
+| Position du label | au-dessus du champ |
+| Espacement entre champs | `md` (16px, voir Espacements) |
+| Largeur des champs | 100% du conteneur parent |
+| Alignement du contenu | gauche par défaut — centré uniquement sur les pages plein écran (voir section suivante) |
+
+---
+
+## Règle de cohérence — Positionnement entre pages
+> Réflexe IA identifié — contexte complet dans FEEDBACK.md (même dossier).
+> Avant de positionner un nouveau bloc ou une nouvelle section : vérifier dans `frontend/PAGES.md` si une page similaire existe déjà, et reproduire la même structure (ordre des blocs, espacement entre sections, alignement) plutôt que d'improviser un agencement différent.
+
+---
+
 ## Layout pages plein écran (login, token, etc.)
 
-- **Conteneur** : `h-dvh` ou `position: fixed; inset: 0` pour bloquer tout scroll
-- **Centrage** : `flex flex-col items-center justify-center`
-- **⚠️ Ne jamais utiliser `min-h-screen`** sur ces pages — `100vh` > viewport visible sur mobile → scroll indésirable
+- **Conteneur** : hauteur `100dvh` (dynamic viewport height) ou `position: fixed; inset: 0` pour bloquer tout scroll
+- **Centrage** : flex, colonne, centré horizontalement et verticalement
+- **⚠️ Ne jamais utiliser `100vh`** sur ces pages — dépasse le viewport visible sur mobile (barre du navigateur) → scroll indésirable
 
 ---
 
 ## Règle CSS — No Camouflage
 
 > Réflexe IA identifié — contexte complet et pourquoi dans FEEDBACK.md (même dossier).
-> Ne jamais empiler du CSS pour masquer un conflit. Choisir : soit DaisyUI gère tout, soit Tailwind pur.
+> Ne jamais empiler des styles conflictuels pour masquer un bug visuel — choisir un seul système de style cohérent et le respecter partout. Toujours utiliser l'élément HTML sémantique réel, jamais un `<div>`/`<span>` avec un handler de clic à la place d'un `<button>`.
 
-| ❌ Interdit | ✅ Correct |
-|---|---|
-| Classes DaisyUI + overrides Tailwind | Choisir l'un ou l'autre |
-| `<div onClick={fn}>` | `<button type="button" onClick={fn}>` |
-| `<span onClick={fn}>` | `<button type="button" onClick={fn}>` |
-| Sélecteur CSS multi-ligne avec `:not()` | Sélecteur complet sur une seule ligne |
+Tableau détaillé et exemples spécifiques à la stack → `frontend/preset-actif.md`.
 
 ---
 
-## Fix obligatoire — Inputs transparents sur mobile (Next.js + DaisyUI v5)
-
-> **Cause** : DaisyUI v5 utilise `oklch()`. Certains navigateurs Android ne supportent pas oklch → fond transparent, texte invisible.
-
-**Triple protection dans `globals.css` (ne jamais supprimer ni modifier) :**
-
-```css
-/* 1. Règle hors @layer — priorité absolue. SÉLECTEUR SUR UNE SEULE LIGNE. */
-input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="button"]):not([type="submit"]):not([type="reset"]),
-select,
-textarea {
-  background-color: #ffffff !important;
-  color: #111111 !important;
-  -webkit-text-fill-color: #111111 !important;
-}
-
-/* 1bis. Le placeholder hérite du color ci-dessus sans cette règle — il devient indiscernable d'une vraie valeur tapée. SÉLECTEUR SUR UNE SEULE LIGNE. */
-input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="button"]):not([type="submit"]):not([type="reset"])::placeholder,
-select::placeholder,
-textarea::placeholder {
-  color: #9ca3af !important;
-  -webkit-text-fill-color: #9ca3af !important;
-  opacity: 1 !important;
-}
-
-/* 2. Fix autofill Android Chrome — box-shadow inset 1000px */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
-  box-shadow: 0 0 0 1000px #ffffff inset !important;
-  -webkit-text-fill-color: #111111 !important;
-  color: #111111 !important;
-}
-
-/* 3. Fallbacks hex après @plugin daisyui/theme */
-:root {
-  --color-base-100: #ffffff;
-  --color-base-content: #111111;
-}
-```
-
-> **⚠️ CRITIQUE** : ne jamais couper le sélecteur `:not()` avec un retour à la ligne — un newline dans un sélecteur CSS crée un combinateur descendant et la règle ne s'applique à rien.
-
-> Tout `<input>`, `<select>`, `<textarea>` ajouté doit aussi avoir `bg-white` en className Tailwind.
+## Fix inputs transparents / placeholder — spécifique à la stack
+> Certaines stacks ont des bugs connus sur les inputs (ex. Tailwind + DaisyUI v5 et `oklch()` sur mobile). Voir `frontend/preset-actif.md` avant de considérer un champ de formulaire terminé.
 
 ---
 
@@ -150,10 +154,12 @@ input:-webkit-autofill:active {
 
 | Élément | Taille minimale |
 |---------|----------------|
-| Input / Select | height ≈ 44px — `py-2.5 text-sm` |
-| Bouton action (icône) | 36×36px (`w-9 h-9`) |
-| Bouton primaire | `py-2.5` minimum |
-| Bouton icône seule | `p-2` (zone tap ≈ 40px) |
+| Input / Select | height ≈ 44px |
+| Bouton action (icône) | 36×36px |
+| Bouton primaire | ≥ 44px |
+| Bouton icône seule | zone tap ≈ 40px |
+
+> Classes/CSS pour atteindre ces tailles selon la stack → `frontend/preset-actif.md`.
 
 ---
 

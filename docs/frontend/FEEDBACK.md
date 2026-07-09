@@ -36,3 +36,24 @@
 - Réflexe observé : le correctif est considéré terminé dès que le bug ciblé disparaît, sans revérifier visuellement les états et pseudo-éléments voisins qui héritent de la même propriété (`::placeholder`, `:disabled`, `::selection`, `:focus-visible`, `:hover`) — le nouveau bug introduit reste invisible parce que personne ne regarde le rendu après coup
 - Pourquoi c'est un problème : un override `!important` a toujours un rayon d'effet plus large que le bug visé. Sans vérification visuelle après le fix, un nouveau défaut remplace l'ancien sans être détecté — observé concrètement quand le fix oklch de STYLE.md a rendu le `::placeholder` indiscernable d'une vraie saisie. C'est le pattern qui revient le plus souvent, tous projets confondus
 - Correction attendue : après tout override CSS `!important` ou tout sélecteur large, lister les pseudo-classes/pseudo-éléments qui héritent de la propriété modifiée et les vérifier un par un dans le navigateur (ou capture d'écran) avant de considérer le fix terminé — ne jamais valider un correctif CSS seulement parce que le symptôme initial a disparu
+
+### Dérive de style entre pages au lieu de réutiliser l'existant
+- Date : —
+- Contexte : création d'un bouton, d'une carte ou d'un input sur une nouvelle page, alors qu'un élément du même type existe déjà ailleurs dans le projet
+- Réflexe observé : l'IA invente une valeur "proche" (radius légèrement différent, bordure différente, padding différent) au lieu de relire STYLE.md > Composants UI / Boutons et de réutiliser exactement les mêmes valeurs — ou pire, sans relire STYLE.md du tout
+- Pourquoi c'est un problème : chaque page introduit une micro-variation invisible au moment où elle est codée, mais l'accumulation rend le produit incohérent visuellement page après page. Plus long à corriger après coup (il faut comparer chaque page une par une) qu'à prévenir en amont
+- Correction attendue : avant de styliser un élément qui a un équivalent probable ailleurs (bouton, carte, input, badge), relire STYLE.md > Composants UI et Boutons — réutiliser tel quel. Si aucun type existant ne convient, l'ajouter au tableau STYLE.md d'abord, avec sa justification, puis l'implémenter — jamais de valeur codée en dur qui n'existe nulle part dans STYLE.md
+
+### Positionnement improvisé au lieu de suivre une convention de mise en page
+- Date : —
+- Contexte : positionner les blocs d'une nouvelle page (espacement entre sections, structure d'un formulaire, alignement du contenu) — pas une question de couleur ou de bouton, mais d'agencement spatial
+- Réflexe observé : l'IA sait généralement produire une page "correcte" isolément (le rendu passe une validation visuelle rapide), mais sans référence à une convention documentée, chaque page adopte son propre agencement — un formulaire avec le label à côté sur une page et au-dessus sur une autre, un espacement entre sections qui varie sans raison
+- Pourquoi c'est un problème : contrairement à une couleur ou un radius faux qui saute aux yeux immédiatement, un agencement "à peu près bon" passe souvent la relecture rapide — l'incohérence ne devient visible qu'en comparant plusieurs pages côte à côte, ce qui n'arrive presque jamais pendant le développement
+- Correction attendue : avant de positionner un nouveau bloc, relire STYLE.md > "Mise en page" (grille, formulaires) et vérifier dans PAGES.md si une page similaire existe déjà — reproduire sa structure plutôt que d'en inventer une nouvelle. Si le cas ne rentre dans aucune convention existante, l'ajouter à STYLE.md > Mise en page d'abord
+
+### Interface qui respecte STYLE.md mais "sent l'IA"
+- Date : —
+- Contexte : une interface techniquement conforme à STYLE.md (bons radius, bonnes couleurs, bons espacements) est livrée comme terminée
+- Réflexe observé : l'IA considère la tâche finie dès que les règles mécaniques de STYLE.md sont respectées, sans évaluer le niveau de finition global — résultat reconnaissable au premier coup d'œil comme généré automatiquement (dégradé violet-bleu par défaut, ombres lourdes uniformes, aucune transition sur les interactions, emoji en guise d'icônes)
+- Pourquoi c'est un problème : respecter des règles mécaniques ne garantit pas un jugement esthétique — les deux sont nécessaires. Un produit qui "sent l'IA" perd en crédibilité même si chaque valeur individuelle est correcte
+- Correction attendue : avant de livrer une interface, passer par la checklist de `frontend/UI-QUALITY.md` (symptômes du style générique) — ne jamais considérer une interface terminée uniquement parce qu'elle respecte STYLE.md mécaniquement

@@ -2,7 +2,7 @@
 > Structure complète de la base de données.
 > Lire avant toute création ou modification de table ou colonne.
 > Ne jamais créer une table absente de ce fichier sans le mettre à jour d'abord.
-> Format d'ajout : "Mets à jour DATABASE.md — table [nom]"
+> Format d'ajout : "Mets à jour backend/DATABASE.md — table [nom]"
 
 ---
 

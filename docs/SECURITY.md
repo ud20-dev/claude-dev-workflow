@@ -8,6 +8,7 @@
 ## Template
 ```
 ### [ ] S[N] — [Titre]
+- Couche : Frontend / Backend / Les deux
 - Fichiers concernés : `[chemin/fichier]`
 - Risque : [description du risque et impact]
 - Difficulté : ⭐ à ⭐⭐⭐⭐⭐

@@ -1,7 +1,7 @@
 # PAGES
 > Description de chaque page du projet.
 > Lire uniquement la section concernée.
-> Format d'ajout : "Mets à jour PAGES.md — page [nom]"
+> Format d'ajout : "Mets à jour frontend/PAGES.md — page [nom]"
 
 ---
 
@@ -22,7 +22,7 @@
 - États :
 - Actions :
 ```
-> Le statut d'avancement de chaque page vit uniquement dans PROGRESS.md — ne pas le dupliquer ici.
+> Le statut d'avancement de chaque page vit uniquement dans PROGRESS.md (racine de `docs/`) — ne pas le dupliquer ici.
 
 ---
 

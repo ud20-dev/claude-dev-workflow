@@ -20,7 +20,7 @@
 ```
 ### [Titre court du bug]
 - Date : JJ/MM/AAAA
-- Fichier concerné : [chemin/vers/fichier.tsx]
+- Fichier concerné : [chemin/vers/fichier]
 - Symptôme : [ce qui se passe — message d'erreur exact si possible]
 - Cause : [pourquoi ça arrive]
 - Solution : [ce qu'on a fait pour corriger]
@@ -61,10 +61,11 @@
 
 ### Inputs / Selects transparents sur mobile (DaisyUI v5)
 - Date : —
+- Stack concernée : Tailwind + DaisyUI v5 uniquement — non applicable sans DaisyUI
 - Fichier concerné : `globals.css` + tout fichier avec `<input>`, `<select>`, `<textarea>`
 - Symptôme : champs de texte transparents sur Android (WebView, Samsung Browser, Chrome Mobile)
 - Cause : DaisyUI v5 utilise `oklch()` pour les couleurs CSS. Certains navigateurs mobiles ne supportent pas oklch → `background-color` tombe à `transparent`
-- Solution : voir la section "Fix obligatoire — Inputs transparents" dans STYLE.md
+- Solution : voir `frontend/presets/tailwind-daisyui.md` — section "Fix obligatoire — Inputs transparents"
 
 ### Validation HTML5 native bloque la logique JS custom
 - Date : —
@@ -75,7 +76,8 @@
 
 ### Placeholder indiscernable d'une vraie valeur (fix oklch)
 - Date : —
-- Fichier concerné : `globals.css` — la règle 1 du "Fix obligatoire — Inputs transparents" dans STYLE.md
+- Stack concernée : Tailwind + DaisyUI v5 pour cette cause précise (le principe — toujours définir `::placeholder` séparément — reste valable sur toute stack, voir `frontend/presets/css-pur.md`)
+- Fichier concerné : `globals.css` — la règle 1 du "Fix obligatoire — Inputs transparents" dans `frontend/presets/tailwind-daisyui.md`
 - Symptôme : le texte du `placeholder` s'affiche en noir plein, identique visuellement à une valeur réellement tapée par l'utilisateur
 - Cause : la règle 1 force `color: #111111 !important` sur l'élément `input` entier pour contourner le bug oklch — sans règle `::placeholder` dédiée, le placeholder hérite de ce même noir au lieu du gris clair par défaut du navigateur
-- Solution : ajouter une règle `::placeholder` séparée (même sélecteur, même contrainte "une seule ligne") avec une couleur plus claire (`#9ca3af`) — voir la section "Fix obligatoire — Inputs transparents" dans STYLE.md
+- Solution : ajouter une règle `::placeholder` séparée (même sélecteur, même contrainte "une seule ligne") avec une couleur plus claire (`#9ca3af`) — voir `frontend/presets/tailwind-daisyui.md`

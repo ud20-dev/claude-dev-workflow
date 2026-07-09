@@ -45,14 +45,18 @@ Lis docs/CLAUDE.md puis docs/PROGRESS.md et dis-moi où on en est en 5 lignes ma
 
 ```
 docs/
-├── CLAUDE.md          — orchestrateur, lu en premier toujours
-├── CONTEXT.md          } partagés — vision et suivi du
-├── PROGRESS.md         }   projet entier, jamais dupliqués
-├── DECISIONS.md        }   par couche
-├── STACK.md             }
-├── SECURITY.md           }
+├── CLAUDE.md      — orchestrateur, lu en premier toujours
+├── CONTEXT.md     — partagés : vision et suivi du projet
+├── PROGRESS.md    —   entier, jamais dupliqués par couche
+├── DECISIONS.md
+├── STACK.md
+├── SECURITY.md
 ├── frontend/
-│   ├── STYLE.md, PAGES.md, COMPONENTS.md
+│   ├── STYLE.md          — design system, neutre vis-à-vis de la stack
+│   ├── UI-QUALITY.md     — direction artistique, vérifiée avant de livrer une interface
+│   ├── preset-actif.md   — LE preset installé pour ce projet (copié depuis presets/)
+│   ├── presets/          — catalogue : tailwind-daisyui, tailwind-only, css-pur…
+│   ├── PAGES.md, COMPONENTS.md
 │   ├── ERRORS.md    — bugs frontend résolus
 │   └── FEEDBACK.md  — réflexes IA à corriger côté frontend
 └── backend/
@@ -77,7 +81,10 @@ Claude ne lit que ce qui est utile pour la tâche en cours...
 | PROGRESS.md | Suivi des sessions | Lu à chaque début de session |
 | DECISIONS.md | Choix techniques | Lu avant toute nouvelle solution |
 | STACK.md | Technologies | Lu avant toute installation |
-| frontend/STYLE.md | Design system | Lu avant toute interface |
+| frontend/STYLE.md | Design system, neutre vis-à-vis de la stack | Lu avant toute interface, avec preset-actif.md |
+| frontend/UI-QUALITY.md | Direction artistique — pourquoi une interface "correcte" peut quand même sentir l'IA | Vérifié avant de livrer une interface, pas avant de la commencer |
+| frontend/preset-actif.md | Le preset installé pour ce projet | Lu à chaque tâche frontend, en même temps que STYLE.md |
+| frontend/presets/ | Catalogue des presets disponibles | Consulté une seule fois, pour installer ou changer de preset |
 | backend/DATABASE.md | Base de données | Lu avant toute modification de table |
 | frontend/PAGES.md | Pages du projet | Lu section par section selon la page |
 | frontend/COMPONENTS.md | Composants | Lu avant tout nouveau composant |
@@ -105,6 +112,7 @@ Et un réflexe CSS n'a rien à faire dans le contexte d'une tâche sur l'API.
 | Nouvelle décision | "Ajoute dans docs/DECISIONS.md — [sujet]" |
 | Réflexe IA à corriger (frontend) | "Ajoute dans docs/frontend/FEEDBACK.md — [pattern]" |
 | Réflexe IA à corriger (backend) | "Ajoute dans docs/backend/FEEDBACK.md — [pattern]" |
+| Installer un preset de style | "Installe le preset [nom]" — copie docs/frontend/presets/[nom].md vers docs/frontend/preset-actif.md |
 | Fin de session | "Mets à jour docs/PROGRESS.md session [numéro]" |
 
 ---
