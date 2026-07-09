@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choisir un style — claude-dev-workflow</title>
+<style>
+  :root {
+    --chrome-bg: #f7f7f5;
+    --chrome-surface: #ffffff;
+    --chrome-text: #1c1c1a;
+    --chrome-muted: #6b6a64;
+    --chrome-border: #e3e2dd;
+    --chrome-accent: #2f6f62;
+    --chrome-selected-bg: #ecf3f1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --chrome-bg: #121212;
+      --chrome-surface: #1a1a1a;
+      --chrome-text: #ededea;
+      --chrome-muted: #9a9990;
+      --chrome-border: #2c2c2a;
+      --chrome-accent: #5cb3a0;
+      --chrome-selected-bg: #17231f;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--chrome-bg);
+    color: var(--chrome-text);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 40px 20px 80px;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  header h1 { font-size: 22px; font-weight: 650; margin: 0 0 6px; text-wrap: balance; }
+  header p { margin: 0; color: var(--chrome-muted); font-size: 14px; max-width: 62ch; line-height: 1.5; }
+
+  .preview-shell {
+    position: sticky;
+    top: 20px;
+    z-index: 5;
+    background: var(--chrome-surface);
+    border: 1px solid var(--chrome-border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .preview-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--chrome-muted); margin: 0 0 14px;
+  }
+  .preview-stage {
+    border-radius: 10px; padding: 40px 20px; display: flex; transition: background 200ms ease;
+  }
+  .preview-card {
+    width: 280px; display: flex; flex-direction: column;
+    transition: background 200ms ease, border-radius 200ms ease, border-color 200ms ease, padding 200ms ease, gap 200ms ease;
+  }
+  .preview-card h2 { margin: 0; font-size: 19px; }
+  .preview-card .field {
+    height: 38px; border-width: 1px; border-style: solid; padding: 0 12px;
+    display: flex; align-items: center; font-size: 13px; transition: border-radius 200ms ease;
+  }
+  .preview-card .btn {
+    height: 38px; border: none; font-size: 14px; font-weight: 600; cursor: default;
+    transition: border-radius 200ms ease;
+  }
+  .preview-summary {
+    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--chrome-border);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .preview-summary code { font-size: 12.5px; color: var(--chrome-muted); }
+  .copy-btn {
+    border: 1px solid var(--chrome-border); background: transparent; color: var(--chrome-text);
+    font-size: 12.5px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: background 150ms ease;
+  }
+  .copy-btn:hover { background: var(--chrome-selected-bg); }
+  .copy-btn:focus-visible { outline: 2px solid var(--chrome-accent); outline-offset: 2px; }
+
+  section.category h3 {
+    font-size: 13px; font-weight: 650; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px;
+  }
+  section.category > p { margin: 0 0 14px; font-size: 13px; color: var(--chrome-muted); }
+  .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .option {
+    text-align: left; background: var(--chrome-surface); border: 1px solid var(--chrome-border);
+    border-radius: 10px; padding: 14px; cursor: pointer; color: var(--chrome-text); font: inherit;
+    display: flex; flex-direction: column; gap: 10px; transition: border-color 150ms ease, background 150ms ease;
+  }
+  .option:hover { border-color: var(--chrome-accent); }
+  .option:focus-visible { outline: 2px solid var(--chrome-accent); outline-offset: 2px; }
+  .option[aria-pressed="true"] { background: var(--chrome-selected-bg); border-color: var(--chrome-accent); }
+  .option .name { font-size: 13.5px; font-weight: 600; }
+  .option .desc { font-size: 12px; color: var(--chrome-muted); line-height: 1.4; }
+
+  .swatches { display: flex; gap: 6px; }
+  .swatch { width: 22px; height: 22px; border-radius: 5px; border: 1px solid rgba(0,0,0,0.08); }
+
+  .type-sample .big { font-size: 17px; font-weight: 700; display: block; margin-bottom: 3px; }
+  .type-sample .small { font-size: 12px; opacity: 0.75; }
+
+  .shape-sample { display: flex; gap: 8px; align-items: center; }
+  .shape-chip { width: 34px; height: 22px; background: var(--chrome-muted); opacity: 0.5; }
+
+  .density-sample { display: flex; gap: 4px; align-items: flex-end; height: 22px; }
+  .density-bar { width: 8px; background: var(--chrome-muted); opacity: 0.5; }
+
+  .align-sample {
+    height: 44px; border: 1px dashed var(--chrome-border); border-radius: 6px;
+    display: flex; align-items: center; padding: 0 10px; font-size: 11px; color: var(--chrome-muted);
+  }
+  .align-sample.center { justify-content: center; }
+  .align-sample.left { justify-content: flex-start; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  footer { font-size: 12.5px; color: var(--chrome-muted); border-top: 1px solid var(--chrome-border); padding-top: 16px; }
+  footer code { background: var(--chrome-selected-bg); padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Choisir un style</h1>
+    <p>Fichier local — ouvre-le directement dans le navigateur, pas besoin de repasser par Claude pour le voir. Clique une option dans chaque catégorie, l'aperçu se met à jour en direct. Une fois satisfait, clique "Copier la sélection" et colle le résultat à Claude pour remplir <code>frontend/STYLE.md</code>.</p>
+  </header>
+
+  <div class="preview-shell">
+    <p class="preview-label">Aperçu en direct</p>
+    <div class="preview-stage" id="stage">
+      <div class="preview-card" id="card">
+        <h2 id="cardTitle">Connexion</h2>
+        <div class="field" id="field1">vous@exemple.com</div>
+        <div class="field" id="field2">••••••••</div>
+        <button class="btn" id="cardBtn">Se connecter</button>
+      </div>
+    </div>
+    <div class="preview-summary">
+      <code id="summary">—</code>
+      <button class="copy-btn" id="copyBtn">Copier la sélection</button>
+    </div>
+  </div>
+
+  <section class="category" id="cat-palette">
+    <h3>Palette</h3>
+    <p>Une seule couleur d'accent par palette, jamais deux qui se battent.</p>
+    <div class="options" id="palette-options"></div>
+  </section>
+
+  <section class="category" id="cat-type">
+    <h3>Typographie</h3>
+    <p>Familles disponibles nativement (aucun fichier de police à charger).</p>
+    <div class="options" id="type-options"></div>
+  </section>
+
+  <section class="category" id="cat-shape">
+    <h3>Forme</h3>
+    <p>S'applique aux boutons, cartes et champs — une seule valeur pour tout le projet.</p>
+    <div class="options" id="shape-options"></div>
+  </section>
+
+  <section class="category" id="cat-density">
+    <h3>Densité</h3>
+    <p>Change l'échelle des espacements du projet — voir STYLE.md &gt; Espacements (xs à xl).</p>
+    <div class="options" id="density-options"></div>
+  </section>
+
+  <section class="category" id="cat-align">
+    <h3>Alignement</h3>
+    <p>Pour les pages plein écran (connexion, token) — voir STYLE.md &gt; Mise en page.</p>
+    <div class="options" id="align-options"></div>
+  </section>
+
+  <footer>
+    Cet outil ne modifie aucun fichier tout seul — c'est un support de décision, pas un générateur. Une fois le résultat copié, c'est Claude qui reporte les valeurs dans <code>frontend/STYLE.md</code> et installe le preset correspondant dans <code>frontend/preset-actif.md</code>.
+  </footer>
+</div>
+
+<script>
+  const palettes = {
+    A: { name: "Sobre & pro", desc: "Indigo sur blanc — B2B, outil de travail",
+      bg: "#f4f5f7", cardBg: "#ffffff", text: "#14181f", muted: "#5b6472",
+      border: "#dde1e6", accent: "#3452eb", accentText: "#ffffff", swatches: ["#3452eb", "#14181f", "#f4f5f7"] },
+    B: { name: "Sombre premium", desc: "Noir profond, accent = contraste inversé",
+      bg: "#0d0d0f", cardBg: "#16161a", text: "#f2f1ed", muted: "#8f8d86",
+      border: "#2a2a2e", accent: "#fafafa", accentText: "#0d0d0f", swatches: ["#0d0d0f", "#fafafa", "#8f8d86"] },
+    C: { name: "Vif & confiant", desc: "Blanc + un accent saturé, grand public",
+      bg: "#f7f7f8", cardBg: "#ffffff", text: "#16161a", muted: "#6e6e76",
+      border: "#e6e6ea", accent: "#c81e5c", accentText: "#ffffff", swatches: ["#c81e5c", "#16161a", "#f7f7f8"] },
+    D: { name: "Minimal monochrome", desc: "Aucune couleur — noir et blanc purs",
+      bg: "#fafafa", cardBg: "#ffffff", text: "#0a0a0a", muted: "#737373",
+      border: "#e5e5e5", accent: "#0a0a0a", accentText: "#ffffff", swatches: ["#0a0a0a", "#737373", "#ffffff"] },
+    E: { name: "Nature", desc: "Sauge sur papier chaud — calme, durable",
+      bg: "#f6f5ef", cardBg: "#fffdf9", text: "#242820", muted: "#6f7a63",
+      border: "#e3e0d3", accent: "#5f7a5f", accentText: "#ffffff", swatches: ["#5f7a5f", "#242820", "#f6f5ef"] },
+    F: { name: "Contraste éditorial", desc: "Noir/blanc pur, accent minuscule et rare",
+      bg: "#ffffff", cardBg: "#ffffff", text: "#0a0a0a", muted: "#71717a",
+      border: "#0a0a0a", accent: "#e11d2e", accentText: "#ffffff", swatches: ["#0a0a0a", "#e11d2e", "#ffffff"] }
+  };
+
+  const types = {
+    1: { name: "Neutre système", desc: "Une seule famille, hiérarchie par le poids", family: "-apple-system, 'Segoe UI', Roboto, sans-serif" },
+    2: { name: "Serif éditorial", desc: "Titres serif, corps sans-serif — contraste classique", family: "Georgia, 'Times New Roman', serif" },
+    3: { name: "Mono technique", desc: "Titres en monospace — ton produit dev/technique", family: "ui-monospace, 'SF Mono', Consolas, monospace" },
+    4: { name: "Condensé impact", desc: "Titres resserrés — affirmé, dense", family: "'Arial Narrow', Arial, sans-serif" }
+  };
+
+  const shapes = {
+    nette: { name: "Nette", desc: "0–2px — technique, sérieux", radius: 2 },
+    douce: { name: "Douce", desc: "8px — équilibrée, la plus courante", radius: 8 },
+    ronde: { name: "Ronde", desc: "18px+ — amicale, grand public", radius: 18 }
+  };
+
+  const densities = {
+    compact: { name: "Compact", desc: "×0.75 — dense, beaucoup d'info à l'écran", scale: 0.75, bars: [8, 12, 16] },
+    confortable: { name: "Confortable", desc: "×1 — l'échelle par défaut de STYLE.md", scale: 1, bars: [10, 16, 22] },
+    spacieux: { name: "Spacieux", desc: "×1.4 — aéré, grand public / marketing", scale: 1.4, bars: [12, 20, 28] }
+  };
+
+  const aligns = {
+    centre: { name: "Centré", desc: "Contenu centré horizontalement et verticalement" },
+    gauche: { name: "Aligné à gauche", desc: "Contenu ancré à gauche, comme dans une app avec sidebar" }
+  };
+
+  let state = { palette: "A", type: 1, shape: "douce", density: "confortable", align: "centre" };
+
+  function buildOptions(containerId, data, key, extraRenderer) {
+    const container = document.getElementById(containerId);
+    Object.entries(data).forEach(([id, item]) => {
+      const btn = document.createElement("button");
+      btn.className = "option";
+      btn.type = "button";
+      btn.setAttribute("aria-pressed", state[key] === id);
+      btn.innerHTML = `<span class="name">${item.name}</span><span class="desc">${item.desc}</span>` + extraRenderer(item);
+      btn.addEventListener("click", () => {
+        state[key] = id;
+        container.querySelectorAll(".option").forEach(o => o.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+        render();
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  buildOptions("palette-options", palettes, "palette", (item) =>
+    `<span class="swatches">${item.swatches.map(c => `<span class="swatch" style="background:${c}"></span>`).join("")}</span>`);
+  buildOptions("type-options", types, "type", (item) =>
+    `<span class="type-sample" style="font-family:${item.family}"><span class="big">Connexion</span><span class="small">Accédez à votre espace</span></span>`);
+  buildOptions("shape-options", shapes, "shape", (item) =>
+    `<span class="shape-sample"><span class="shape-chip" style="border-radius:${item.radius}px"></span><span class="shape-chip" style="border-radius:${item.radius}px"></span></span>`);
+  buildOptions("density-options", densities, "density", (item) =>
+    `<span class="density-sample">${item.bars.map(h => `<span class="density-bar" style="height:${h}px"></span>`).join("")}</span>`);
+  buildOptions("align-options", aligns, "align", (item) =>
+    `<span class="align-sample ${item === aligns.centre ? "center" : "left"}">contenu</span>`);
+
+  function render() {
+    const p = palettes[state.palette];
+    const t = types[state.type];
+    const s = shapes[state.shape];
+    const d = densities[state.density];
+    const a = state.align;
+
+    const stage = document.getElementById("stage");
+    const card = document.getElementById("card");
+    stage.style.background = p.bg;
+    stage.style.justifyContent = a === "centre" ? "center" : "flex-start";
+
+    card.style.background = p.cardBg;
+    card.style.color = p.text;
+    card.style.border = `1px solid ${p.border}`;
+    card.style.borderRadius = (s.radius + 4) + "px";
+    card.style.fontFamily = t.family;
+    card.style.textAlign = a === "centre" ? "center" : "left";
+    card.style.alignItems = a === "centre" ? "center" : "stretch";
+    card.style.padding = Math.round(28 * d.scale) + "px " + Math.round(24 * d.scale) + "px";
+    card.style.gap = Math.round(14 * d.scale) + "px";
+
+    ["field1", "field2"].forEach(id => {
+      const el = document.getElementById(id);
+      el.style.borderColor = p.border;
+      el.style.color = p.muted;
+      el.style.background = p.cardBg;
+      el.style.borderRadius = s.radius + "px";
+      el.style.width = a === "centre" ? "100%" : "auto";
+    });
+
+    const btn = document.getElementById("cardBtn");
+    btn.style.background = p.accent;
+    btn.style.color = p.accentText;
+    btn.style.borderRadius = s.radius + "px";
+    btn.style.width = a === "centre" ? "100%" : "fit-content";
+    btn.style.fontFamily = t.family;
+
+    document.getElementById("cardTitle").style.fontFamily = t.family;
+
+    document.getElementById("summary").textContent =
+      `Palette ${state.palette} (${p.name}) · Typo ${state.type} (${t.name}) · Forme ${s.name} · Densité ${d.name} · ${aligns[a].name}`;
+  }
+
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    const text = document.getElementById("summary").textContent;
+    navigator.clipboard?.writeText(text);
+    const btn = document.getElementById("copyBtn");
+    const original = btn.textContent;
+    btn.textContent = "Copié ✓";
+    setTimeout(() => { btn.textContent = original; }, 1400);
+  });
+
+  render();
+</script>
+</body>
+</html>

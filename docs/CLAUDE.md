@@ -22,10 +22,12 @@ docs/
 ├── CONTEXT.md      — partagés : vision et suivi du projet entier,
 ├── PROGRESS.md     —   jamais spécifiques à une seule couche
 ├── DECISIONS.md    —   (voir note ci-dessous)
+├── CHANGELOG.md    — journal humain, pas lu automatiquement par Claude (voir "Les 3 axes")
 ├── STACK.md
 ├── SECURITY.md
 ├── frontend/
 │   ├── STYLE.md          — design system, neutre vis-à-vis de la stack
+│   ├── style-picker.html — outil local (double-clic) pour calibrer le style avant de remplir STYLE.md
 │   ├── UI-QUALITY.md     — direction artistique, à vérifier avant de livrer une interface
 │   ├── preset-actif.md   — LE preset installé pour ce projet, lu avec STYLE.md à chaque tâche
 │   ├── presets/          — catalogue des presets disponibles (jamais lu directement, jamais modifié) : tailwind-daisyui, tailwind-only, css-pur…
@@ -45,14 +47,38 @@ Règle de fond : tout ce qui définit le projet dans son ensemble (vision, déci
 
 ---
 
+## Les 4 axes de docs/
+> Grille de lecture — sert à savoir où range une nouvelle information avant de créer un nouveau fichier. Pas une nouvelle arborescence, juste une classification de ce qui existe déjà.
+
+| Axe | Rôle | Pour qui | Fichiers |
+|---|---|---|---|
+| **Mémoire** | Ce qui s'est passé / ce qui existe — sans ça, chaque session repart de zéro | Claude | CONTEXT.md, PROGRESS.md, DECISIONS.md, STACK.md, SECURITY.md, PAGES.md, COMPONENTS.md, DATABASE.md, ERRORS.md (frontend + backend) |
+| **Skill** | Le savoir-faire injecté par défaut — design, technique — pour que le résultat soit bon dès le départ | Claude | STYLE.md, UI-QUALITY.md, style-picker.html, presets/, preset-actif.md |
+| **Garde-fou** | Ce qui a déjà mal tourné (ici ou ailleurs) et ne doit jamais se reproduire | Claude | FEEDBACK.md (frontend + backend), certaines Règles absolues ci-dessous |
+| **Onboarding** | L'histoire et l'état du projet, en langage clair — pas des pointeurs à suivre | Humain | CHANGELOG.md |
+
+Une nouvelle information à ajouter : identifier d'abord son axe, puis chercher le fichier existant de cet axe avant d'en créer un nouveau. `CHANGELOG.md` est le seul fichier de `docs/` qui n'est pas lu automatiquement par Claude — uniquement à la demande, ou pour y ajouter une entrée.
+
+---
+
 ## Session 1 — dans cet ordre
 > Ne s'applique qu'une seule fois, au tout début du projet. Les sessions suivantes commencent directement par "Aiguillage" plus bas.
 
 1. `CONTEXT.md` — vision du produit
 2. `STACK.md` — technologies du projet
-3. Tâche frontend prévue ? → installer un preset (`frontend/presets/` → copier vers `frontend/preset-actif.md`, voir "Commandes utiles")
-4. `frontend/STYLE.md` — remplir Couleurs, Typography, Composants UI, Boutons avant la première interface
-5. `frontend/UI-QUALITY.md` — remplir "À remplir par projet" (niveau de finition visé, références)
+
+**Si tâche frontend prévue :**
+
+3. Installer un preset (`frontend/presets/` → copier vers `frontend/preset-actif.md`, voir "Commandes utiles")
+4. Ouvrir `frontend/style-picker.html` dans un navigateur (double-clic, fichier local, aucun serveur requis) pour calibrer visuellement palette/typo/forme/densité/alignement
+5. `frontend/STYLE.md` — reporter les choix du style-picker dans Couleurs, Typography, Composants UI, Boutons
+6. `frontend/UI-QUALITY.md` — remplir "À remplir par projet" (niveau de finition visé, références)
+
+**Si tâche backend prévue :**
+
+3. `backend/DATABASE.md` — plateforme, ORM, premières tables connues dès le départ
+4. `STACK.md` > section Backend — runtime, framework, type d'API, auth
+5. Convention de réponse d'API et de gestion d'erreur pas encore standardisée dans ce template — si le projet en a une, l'ajouter dans `backend/DATABASE.md` > "Règles métier" ou demander avant d'improviser une structure différente d'un endpoint à l'autre
 
 ---
 
@@ -70,6 +96,7 @@ Règle de fond : tout ce qui définit le projet dans son ensemble (vision, déci
 - Chaque décision technique → `DECISIONS.md` immédiatement (partagé, jamais dupliqué par couche)
 - Chaque réflexe IA observé → `FEEDBACK.md` (frontend ou backend) immédiatement
 - Fin de session → `PROGRESS.md` obligatoirement
+- Changement significatif (nouvelle fonctionnalité, décision qui change la direction, gros refactor) → ajouter une entrée dans `CHANGELOG.md`, en langage humain, pas en pointeurs — pas pour chaque petit commit
 - Ne jamais recréer un composant déjà dans `COMPONENTS.md` ni une table déjà dans `DATABASE.md`
 - Si une information manque → demander avant d'inventer
 
@@ -96,6 +123,7 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 | CONTEXT.md | Première session ou doute sur la direction du produit |
 | PROGRESS.md | Début de chaque session |
 | DECISIONS.md | Avant de proposer une solution ou technologie |
+| CHANGELOG.md | Jamais automatiquement — sur demande de l'utilisateur, ou pour y ajouter une entrée après un changement significatif |
 | STACK.md | Installation, configuration, commandes terminal |
 | frontend/STYLE.md | Création ou modification d'une interface — toujours avec preset-actif.md |
 | frontend/UI-QUALITY.md | Avant de livrer une interface — après STYLE.md, pas à la place |
@@ -117,6 +145,7 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 | Action | Commande à dire |
 |--------|----------------|
 | Démarrer une session | "Lis CLAUDE.md puis PROGRESS.md" |
+| Choix fait dans style-picker.html | "J'ai choisi [coller le résultat de 'Copier la sélection'] → remplis frontend/STYLE.md" |
 | Travailler sur une page | "Lis frontend/PAGES.md section [nom] et frontend/STYLE.md" |
 | Créer un composant | "Lis frontend/COMPONENTS.md et frontend/STYLE.md" |
 | Modifier la base de données | "Lis backend/DATABASE.md" |
@@ -124,6 +153,8 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 | Bug backend rencontré | "Lis backend/ERRORS.md — j'ai ce bug : [description]" |
 | Fin de session | "Mets à jour PROGRESS.md session [numéro]" |
 | Nouvelle décision | "Ajoute dans DECISIONS.md — [sujet]" |
+| Nouveau dev qui rejoint | "Lis CHANGELOG.md et résume-moi le projet" |
+| Changement significatif à documenter | "Ajoute dans CHANGELOG.md — [ce qui a changé]" |
 | Réflexe IA à corriger (frontend) | "Ajoute dans frontend/FEEDBACK.md — [pattern]" |
 | Réflexe IA à corriger (backend) | "Ajoute dans backend/FEEDBACK.md — [pattern]" |
 | Installer un preset de style | "Installe le preset [nom] — copie frontend/presets/[nom].md vers frontend/preset-actif.md" |

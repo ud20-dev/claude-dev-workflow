@@ -49,10 +49,12 @@ docs/
 ├── CONTEXT.md     — partagés : vision et suivi du projet
 ├── PROGRESS.md    —   entier, jamais dupliqués par couche
 ├── DECISIONS.md
+├── CHANGELOG.md   — journal humain, pas lu automatiquement par Claude
 ├── STACK.md
 ├── SECURITY.md
 ├── frontend/
 │   ├── STYLE.md          — design system, neutre vis-à-vis de la stack
+│   ├── style-picker.html — outil local pour calibrer visuellement le style avant de remplir STYLE.md
 │   ├── UI-QUALITY.md     — direction artistique, vérifiée avant de livrer une interface
 │   ├── preset-actif.md   — LE preset installé pour ce projet (copié depuis presets/)
 │   ├── presets/          — catalogue : tailwind-daisyui, tailwind-only, css-pur…
@@ -80,6 +82,7 @@ Claude ne lit que ce qui est utile pour la tâche en cours...
 | CONTEXT.md | Vision du produit | Lu uniquement en première session |
 | PROGRESS.md | Suivi des sessions | Lu à chaque début de session |
 | DECISIONS.md | Choix techniques | Lu avant toute nouvelle solution |
+| CHANGELOG.md | Journal humain du projet, en langage clair | Jamais lu automatiquement par Claude — pour un nouveau développeur qui découvre le projet |
 | STACK.md | Technologies | Lu avant toute installation |
 | frontend/STYLE.md | Design system, neutre vis-à-vis de la stack | Lu avant toute interface, avec preset-actif.md |
 | frontend/UI-QUALITY.md | Direction artistique — pourquoi une interface "correcte" peut quand même sentir l'IA | Vérifié avant de livrer une interface, pas avant de la commencer |
@@ -110,6 +113,7 @@ Et un réflexe CSS n'a rien à faire dans le contexte d'une tâche sur l'API.
 | Bug frontend rencontré | "Lis docs/frontend/ERRORS.md — j'ai ce bug : [description]" |
 | Bug backend rencontré | "Lis docs/backend/ERRORS.md — j'ai ce bug : [description]" |
 | Nouvelle décision | "Ajoute dans docs/DECISIONS.md — [sujet]" |
+| Nouveau dev qui rejoint le projet | "Lis docs/CHANGELOG.md et résume-moi le projet" |
 | Réflexe IA à corriger (frontend) | "Ajoute dans docs/frontend/FEEDBACK.md — [pattern]" |
 | Réflexe IA à corriger (backend) | "Ajoute dans docs/backend/FEEDBACK.md — [pattern]" |
 | Installer un preset de style | "Installe le preset [nom]" — copie docs/frontend/presets/[nom].md vers docs/frontend/preset-actif.md |
@@ -150,6 +154,8 @@ cp -r claude-dev-workflow/docs/ ton-projet/docs/
 Tu as trouvé une façon d'améliorer le système ?
 Ouvre une issue ou soumets une pull request.
 Toutes les contributions sont les bienvenues.
+
+Le pourquoi des choix d'architecture du template (pas ceux d'un projet qui l'utilise) est documenté dans [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
