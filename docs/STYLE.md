@@ -15,6 +15,12 @@
 
 ---
 
+## Mode sombre
+
+- Activé : [ ] Oui  [ ] Non
+
+---
+
 ## Typography
 
 | Élément | Valeur |
@@ -42,8 +48,9 @@
 | Radius bouton standard | |
 | Radius carte | |
 | Radius input | |
-| Height input | |
 | Bordure input | |
+
+> Height input : définie une seule fois dans "Règles mobile — Touch targets" plus bas — ne pas la redéfinir ici.
 
 ---
 
@@ -76,14 +83,9 @@
 
 ---
 
-## Mode sombre
-
-- Activé : non / oui
-
----
-
 ## Règle CSS — No Camouflage
 
+> Réflexe IA identifié — contexte complet et pourquoi dans FEEDBACK.md.
 > Ne jamais empiler du CSS pour masquer un conflit. Choisir : soit DaisyUI gère tout, soit Tailwind pur.
 
 | ❌ Interdit | ✅ Correct |
@@ -147,6 +149,7 @@ input:-webkit-autofill:active {
 ---
 
 ## Convention par zone
+> Ex. : un préfixe de route qui a sa propre convention (layout admin, pas de nav mobile, etc.)
 
 | Route | Convention |
 |-------|-----------|

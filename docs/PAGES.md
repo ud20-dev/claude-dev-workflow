@@ -21,17 +21,10 @@
 - Données : GET /
 - États :
 - Actions :
-- Statut : [ ] À faire
 ```
-
----.
-
-## Pages
+> Le statut d'avancement de chaque page vit uniquement dans PROGRESS.md — ne pas le dupliquer ici.
 
 ---
 
-## Statut global
-
-| Page | Route | Statut |
-|------|-------|--------|
-| | | [ ] À faire |
+## Pages
+> Coller ici chaque page remplie avec le template ci-dessus.

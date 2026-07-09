@@ -19,6 +19,7 @@ et dis-moi où on en est en 5 lignes maximum"
 - Toujours appliquer STYLE.md sans interprétation personnelle
 - Chaque bug résolu → ajouter dans ERRORS.md immédiatement
 - Chaque décision technique → ajouter dans DECISIONS.md immédiatement
+- Chaque réflexe IA problématique observé → ajouter dans FEEDBACK.md immédiatement
 - Fin de session → mettre à jour PROGRESS.md obligatoirement
 - Ne jamais recréer un composant qui existe déjà dans COMPONENTS.md
 - Ne jamais créer une table qui existe déjà dans DATABASE.md
@@ -39,6 +40,7 @@ et dis-moi où on en est en 5 lignes maximum"
 | PAGES.md | Création ou modification d'une page — lire uniquement la section concernée |
 | COMPONENTS.md | Création ou modification d'un composant |
 | ERRORS.md | Quand un bug apparaît — vérifier si déjà résolu |
+| FEEDBACK.md | Avant une tâche où un réflexe IA connu pourrait se reproduire |
 | SECURITY.md | Avant/après tout travail de sécurité — liste des failles à corriger |
 
 ---
@@ -54,3 +56,4 @@ et dis-moi où on en est en 5 lignes maximum"
 | Bug rencontré | "Lis ERRORS.md — j'ai ce bug : [description]" |
 | Fin de session | "Mets à jour PROGRESS.md session [numéro]" |
 | Nouvelle décision | "Ajoute dans DECISIONS.md — [sujet]" |
+| Réflexe IA à corriger | "Ajoute dans FEEDBACK.md — [pattern]" |

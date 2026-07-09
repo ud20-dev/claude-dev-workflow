@@ -57,6 +57,8 @@ Claude ne lit que ce qui est utile pour la tâche en cours...
 | PAGES.md | Pages du projet | Lu section par section selon la page |
 | COMPONENTS.md | Composants | Lu avant tout nouveau composant |
 | ERRORS.md | Bugs résolus | Lu quand un bug apparaît |
+| FEEDBACK.md | Réflexes IA à corriger | Lu avant une tâche à risque de pattern connu |
+| SECURITY.md | Failles de sécurité | Lu avant/après tout travail de sécurité |
 
 Si tout était dans un seul fichier — Claude lirait tout
 pour trouver une seule information. Tokens gaspillés. Temps perdu.
@@ -71,6 +73,8 @@ pour trouver une seule information. Tokens gaspillés. Temps perdu.
 | Travailler sur une page | "Lis docs/PAGES.md section [nom] et docs/STYLE.md" |
 | Créer un composant | "Lis docs/COMPONENTS.md et docs/STYLE.md" |
 | Bug rencontré | "Lis docs/ERRORS.md — j'ai ce bug : [description]" |
+| Nouvelle décision | "Ajoute dans docs/DECISIONS.md — [sujet]" |
+| Réflexe IA à corriger | "Ajoute dans docs/FEEDBACK.md — [pattern]" |
 | Fin de session | "Mets à jour docs/PROGRESS.md session [numéro]" |
 
 ---

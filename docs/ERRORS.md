@@ -29,6 +29,7 @@
 ---
 
 ## Bugs résolus
+> Les entrées avec `Date : —` sont des connaissances génériques (vraies sur tout projet utilisant cette stack), pas des incidents d'un projet précis. Une nouvelle entrée issue d'un vrai bug rencontré doit, elle, porter une date réelle.
 
 ### SQLAlchemy async — lazy loading relation non chargée
 - Date : —

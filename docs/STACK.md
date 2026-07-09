@@ -55,6 +55,7 @@
 ---
 
 ## Variables d'environnement
+> Uniquement les noms de variables — jamais de vraie valeur secrète ici, ce fichier est commité dans git. Les vraies valeurs vivent dans `.env` (non commité).
 
 ```
 # À compléter selon le projet

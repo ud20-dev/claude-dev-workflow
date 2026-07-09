@@ -30,5 +30,13 @@
 
 ---
 
+## Enums
+
+---
+
+## Index
+
+---
+
 ## Règles métier
 
