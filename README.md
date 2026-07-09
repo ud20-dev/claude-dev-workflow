@@ -27,6 +27,7 @@ Un ensemble de fichiers markdown structurés qui donnent à Claude exactement
 ce dont il a besoin, au moment où il en a besoin.
 
 Un fichier par sujet. Pas de bruit. Pas de gaspillage.
+Et une séparation nette entre ce qui appartient au projet entier et ce qui appartient à une seule couche.
 
 ---
 
@@ -40,6 +41,30 @@ Lis docs/CLAUDE.md puis docs/PROGRESS.md et dis-moi où on en est en 5 lignes ma
 
 ---
 
+## Structure
+
+```
+docs/
+├── CLAUDE.md          — orchestrateur, lu en premier toujours
+├── CONTEXT.md          } partagés — vision et suivi du
+├── PROGRESS.md         }   projet entier, jamais dupliqués
+├── DECISIONS.md        }   par couche
+├── STACK.md             }
+├── SECURITY.md           }
+├── frontend/
+│   ├── STYLE.md, PAGES.md, COMPONENTS.md
+│   ├── ERRORS.md    — bugs frontend résolus
+│   └── FEEDBACK.md  — réflexes IA à corriger côté frontend
+└── backend/
+    ├── DATABASE.md
+    ├── ERRORS.md    — bugs backend résolus
+    └── FEEDBACK.md  — réflexes IA à corriger côté backend
+```
+
+`CLAUDE.md` est le cerveau : c'est lui qui détermine, pour chaque tâche, s'il faut lire dans `frontend/`, `backend/`, ou les fichiers partagés à la racine — jamais tout `docs/` en bloc.
+
+---
+
 ## Pourquoi tout est séparé
 
 Chaque fichier a un rôle unique et précis.
@@ -47,21 +72,24 @@ Claude ne lit que ce qui est utile pour la tâche en cours...
 
 | Fichier | Rôle | Pourquoi séparé |
 |---------|------|-----------------|
-| CLAUDE.md | Point d'entrée | Lu une seule fois au démarrage |
+| CLAUDE.md | Point d'entrée, orchestrateur | Lu une seule fois au démarrage |
 | CONTEXT.md | Vision du produit | Lu uniquement en première session |
 | PROGRESS.md | Suivi des sessions | Lu à chaque début de session |
 | DECISIONS.md | Choix techniques | Lu avant toute nouvelle solution |
 | STACK.md | Technologies | Lu avant toute installation |
-| STYLE.md | Design system | Lu avant toute interface |
-| DATABASE.md | Base de données | Lu avant toute modification de table |
-| PAGES.md | Pages du projet | Lu section par section selon la page |
-| COMPONENTS.md | Composants | Lu avant tout nouveau composant |
-| ERRORS.md | Bugs résolus | Lu quand un bug apparaît |
-| FEEDBACK.md | Réflexes IA à corriger | Lu avant une tâche à risque de pattern connu |
+| frontend/STYLE.md | Design system | Lu avant toute interface |
+| backend/DATABASE.md | Base de données | Lu avant toute modification de table |
+| frontend/PAGES.md | Pages du projet | Lu section par section selon la page |
+| frontend/COMPONENTS.md | Composants | Lu avant tout nouveau composant |
+| frontend/ERRORS.md | Bugs résolus côté interface | Lu quand un bug frontend apparaît |
+| backend/ERRORS.md | Bugs résolus côté serveur/API | Lu quand un bug backend apparaît |
+| frontend/FEEDBACK.md | Réflexes IA à corriger côté interface | Lu avant une tâche frontend à risque de pattern connu |
+| backend/FEEDBACK.md | Réflexes IA à corriger côté serveur | Lu avant une tâche backend à risque de pattern connu |
 | SECURITY.md | Failles de sécurité | Lu avant/après tout travail de sécurité |
 
 Si tout était dans un seul fichier — Claude lirait tout
 pour trouver une seule information. Tokens gaspillés. Temps perdu.
+Et un réflexe CSS n'a rien à faire dans le contexte d'une tâche sur l'API.
 
 ---
 
@@ -70,11 +98,13 @@ pour trouver une seule information. Tokens gaspillés. Temps perdu.
 | Action | Commande |
 |--------|----------|
 | Début de session | "Lis docs/CLAUDE.md puis docs/PROGRESS.md" |
-| Travailler sur une page | "Lis docs/PAGES.md section [nom] et docs/STYLE.md" |
-| Créer un composant | "Lis docs/COMPONENTS.md et docs/STYLE.md" |
-| Bug rencontré | "Lis docs/ERRORS.md — j'ai ce bug : [description]" |
+| Travailler sur une page | "Lis docs/frontend/PAGES.md section [nom] et docs/frontend/STYLE.md" |
+| Créer un composant | "Lis docs/frontend/COMPONENTS.md et docs/frontend/STYLE.md" |
+| Bug frontend rencontré | "Lis docs/frontend/ERRORS.md — j'ai ce bug : [description]" |
+| Bug backend rencontré | "Lis docs/backend/ERRORS.md — j'ai ce bug : [description]" |
 | Nouvelle décision | "Ajoute dans docs/DECISIONS.md — [sujet]" |
-| Réflexe IA à corriger | "Ajoute dans docs/FEEDBACK.md — [pattern]" |
+| Réflexe IA à corriger (frontend) | "Ajoute dans docs/frontend/FEEDBACK.md — [pattern]" |
+| Réflexe IA à corriger (backend) | "Ajoute dans docs/backend/FEEDBACK.md — [pattern]" |
 | Fin de session | "Mets à jour docs/PROGRESS.md session [numéro]" |
 
 ---

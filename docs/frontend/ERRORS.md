@@ -1,13 +1,13 @@
-# ERRORS
-> Historique de tous les bugs rencontrés et résolus.
-> Lire quand un bug apparaît — vérifier s'il a déjà été résolu.
+# ERRORS — FRONTEND
+> Historique de tous les bugs frontend rencontrés et résolus.
+> Lire quand un bug apparaît côté interface — vérifier s'il a déjà été résolu.
 > Ne jamais supprimer une entrée existante.
-> Format d'ajout : "Ajoute dans ERRORS.md — [description du bug]"
+> Format d'ajout : "Ajoute dans frontend/ERRORS.md — [description du bug]"
 
 ---
 
 ## Comment utiliser ce fichier
-1. Un bug apparaît → dire "Lis ERRORS.md — j'ai ce bug : [description]"
+1. Un bug apparaît → dire "Lis frontend/ERRORS.md — j'ai ce bug : [description]"
 2. Claude vérifie si le bug existe déjà
 3. Si oui → appliquer la solution existante
 4. Si non → résoudre puis ajouter dans ce fichier
@@ -30,13 +30,6 @@
 
 ## Bugs résolus
 > Les entrées avec `Date : —` sont des connaissances génériques (vraies sur tout projet utilisant cette stack), pas des incidents d'un projet précis. Une nouvelle entrée issue d'un vrai bug rencontré doit, elle, porter une date réelle.
-
-### SQLAlchemy async — lazy loading relation non chargée
-- Date : —
-- Fichier concerné : tout fichier `api/*.py` avec des relations
-- Symptôme : endpoint lève `MissingGreenlet` ou crash silencieux à l'accès d'une relation
-- Cause : accès à `obj.relation` sans eager loading dans un contexte async SQLAlchemy — le lazy loading n'est pas supporté en async
-- Solution : ajouter `.options(selectinload(Model.relation))` à toutes les requêtes qui accèdent à des relations
 
 ### Frontend — loading infini si API inaccessible
 - Date : —
@@ -72,3 +65,17 @@
 - Symptôme : champs de texte transparents sur Android (WebView, Samsung Browser, Chrome Mobile)
 - Cause : DaisyUI v5 utilise `oklch()` pour les couleurs CSS. Certains navigateurs mobiles ne supportent pas oklch → `background-color` tombe à `transparent`
 - Solution : voir la section "Fix obligatoire — Inputs transparents" dans STYLE.md
+
+### Validation HTML5 native bloque la logique JS custom
+- Date : —
+- Fichier concerné : tout `<form>` avec un `<input type="email">` (ou `required`/`pattern`) et une validation custom dans `onSubmit`
+- Symptôme : l'état d'erreur custom ne s'affiche jamais, le formulaire semble ignorer une saisie invalide
+- Cause : le navigateur bloque l'événement `submit` avant qu'il n'atteigne React tant que la contrainte HTML5 native n'est pas respectée — `onSubmit` n'est jamais appelé
+- Solution : ajouter `noValidate` sur le `<form>` pour désactiver la validation native et garder le contrôle complet des états côté React
+
+### Placeholder indiscernable d'une vraie valeur (fix oklch)
+- Date : —
+- Fichier concerné : `globals.css` — la règle 1 du "Fix obligatoire — Inputs transparents" dans STYLE.md
+- Symptôme : le texte du `placeholder` s'affiche en noir plein, identique visuellement à une valeur réellement tapée par l'utilisateur
+- Cause : la règle 1 force `color: #111111 !important` sur l'élément `input` entier pour contourner le bug oklch — sans règle `::placeholder` dédiée, le placeholder hérite de ce même noir au lieu du gris clair par défaut du navigateur
+- Solution : ajouter une règle `::placeholder` séparée (même sélecteur, même contrainte "une seule ligne") avec une couleur plus claire (`#9ca3af`) — voir la section "Fix obligatoire — Inputs transparents" dans STYLE.md

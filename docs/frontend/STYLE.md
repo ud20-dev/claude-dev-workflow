@@ -85,7 +85,7 @@
 
 ## Règle CSS — No Camouflage
 
-> Réflexe IA identifié — contexte complet et pourquoi dans FEEDBACK.md.
+> Réflexe IA identifié — contexte complet et pourquoi dans FEEDBACK.md (même dossier).
 > Ne jamais empiler du CSS pour masquer un conflit. Choisir : soit DaisyUI gère tout, soit Tailwind pur.
 
 | ❌ Interdit | ✅ Correct |
@@ -111,6 +111,15 @@ textarea {
   background-color: #ffffff !important;
   color: #111111 !important;
   -webkit-text-fill-color: #111111 !important;
+}
+
+/* 1bis. Le placeholder hérite du color ci-dessus sans cette règle — il devient indiscernable d'une vraie valeur tapée. SÉLECTEUR SUR UNE SEULE LIGNE. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="button"]):not([type="submit"]):not([type="reset"])::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
+  opacity: 1 !important;
 }
 
 /* 2. Fix autofill Android Chrome — box-shadow inset 1000px */

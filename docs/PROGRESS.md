@@ -28,7 +28,7 @@ Phase 1 — Setup & Configuration
 ---
 
 ## Statut des pages
-> Source unique du statut d'avancement — PAGES.md ne documente que la spec de chaque page.
+> Source unique du statut d'avancement — frontend/PAGES.md ne documente que la spec de chaque page.
 
 | Page | Route | Statut |
 |------|-------|--------|
