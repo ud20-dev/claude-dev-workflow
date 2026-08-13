@@ -22,7 +22,7 @@ docs/
 ├── CONTEXT.md      — partagés : vision et suivi du projet entier,
 ├── PROGRESS.md     —   jamais spécifiques à une seule couche
 ├── DECISIONS.md    —   (voir note ci-dessous)
-├── CHANGELOG.md    — journal humain, pas lu automatiquement par Claude (voir "Les 3 axes")
+├── CHANGELOG.md    — journal humain, pas lu automatiquement par Claude (voir "Les 4 axes")
 ├── STACK.md
 ├── SECURITY.md
 ├── frontend/
@@ -37,6 +37,7 @@ docs/
 │   └── FEEDBACK.md   — réflexes IA à corriger côté frontend
 └── backend/
     ├── DATABASE.md   — schéma de la base de données
+    ├── TODO.md       — ce que le backend doit encore construire, déduit du frontend déjà fait en mock
     ├── ERRORS.md     — bugs backend résolus
     └── FEEDBACK.md   — réflexes IA à corriger côté backend
 ```
@@ -93,6 +94,7 @@ Une nouvelle information à ajouter : identifier d'abord son axe, puis chercher 
 - Avant de livrer une interface → vérifier UI-QUALITY.md — voir FEEDBACK.md ("Interface qui... sent l'IA")
 - Après un fix CSS `!important`/sélecteur large → revérifier les états voisins — voir FEEDBACK.md ("Fix CSS large...")
 - Chaque bug résolu → `ERRORS.md` (frontend ou backend) immédiatement
+- Page/fonctionnalité frontend construite en mock faute d'endpoint → `backend/TODO.md` immédiatement (endpoint attendu, rôle requis, forme de données déjà utilisée côté frontend) — une fois l'endpoint construit et branché, retirer l'entrée ou la réduire à une ligne dans `PROGRESS.md`
 - Chaque décision technique → `DECISIONS.md` immédiatement (partagé, jamais dupliqué par couche)
 - Chaque réflexe IA observé → `FEEDBACK.md` (frontend ou backend) immédiatement
 - Fin de session → `PROGRESS.md` obligatoirement
@@ -130,6 +132,7 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 | frontend/preset-actif.md | En même temps que STYLE.md, à chaque tâche frontend |
 | frontend/presets/ | Seulement au moment d'installer ou changer de preset (session 1 ou changement de stack) |
 | backend/DATABASE.md | Création ou modification de la base de données |
+| backend/TODO.md | Début d'une tâche backend (savoir quoi construire en priorité) ; côté frontend, dès qu'une page est faite en mock faute d'endpoint |
 | frontend/PAGES.md | Création ou modification d'une page — lire uniquement la section concernée |
 | frontend/COMPONENTS.md | Création ou modification d'un composant |
 | frontend/ERRORS.md | Bug frontend (UI, CSS, React) — vérifier si déjà résolu |
@@ -149,6 +152,7 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 | Travailler sur une page | "Lis frontend/PAGES.md section [nom] et frontend/STYLE.md" |
 | Créer un composant | "Lis frontend/COMPONENTS.md et frontend/STYLE.md" |
 | Modifier la base de données | "Lis backend/DATABASE.md" |
+| Savoir quoi construire côté backend | "Lis backend/TODO.md" |
 | Bug frontend rencontré | "Lis frontend/ERRORS.md — j'ai ce bug : [description]" |
 | Bug backend rencontré | "Lis backend/ERRORS.md — j'ai ce bug : [description]" |
 | Fin de session | "Mets à jour PROGRESS.md session [numéro]" |

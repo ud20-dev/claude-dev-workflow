@@ -1,5 +1,5 @@
 # claude-dev-workflow
-> Version 1.0.1
+> Version 1.1.0
 
 Un système de documentation structuré pour travailler efficacement avec Claude sur des projets web.
 
@@ -63,6 +63,7 @@ docs/
 │   └── FEEDBACK.md  — réflexes IA à corriger côté frontend
 └── backend/
     ├── DATABASE.md
+    ├── TODO.md      — ce que le backend doit encore construire, déduit du frontend déjà fait en mock
     ├── ERRORS.md    — bugs backend résolus
     └── FEEDBACK.md  — réflexes IA à corriger côté backend
 ```
@@ -89,6 +90,7 @@ Claude ne lit que ce qui est utile pour la tâche en cours...
 | frontend/preset-actif.md | Le preset installé pour ce projet | Lu à chaque tâche frontend, en même temps que STYLE.md |
 | frontend/presets/ | Catalogue des presets disponibles | Consulté une seule fois, pour installer ou changer de preset |
 | backend/DATABASE.md | Base de données | Lu avant toute modification de table |
+| backend/TODO.md | Ce que le backend doit encore construire, déduit du frontend déjà fait en mock | Lu au début d'une tâche backend ; alimenté dès qu'une page frontend est construite en mock faute d'endpoint |
 | frontend/PAGES.md | Pages du projet | Lu section par section selon la page |
 | frontend/COMPONENTS.md | Composants | Lu avant tout nouveau composant |
 | frontend/ERRORS.md | Bugs résolus côté interface | Lu quand un bug frontend apparaît |
@@ -110,6 +112,7 @@ Et un réflexe CSS n'a rien à faire dans le contexte d'une tâche sur l'API.
 | Début de session | "Lis docs/CLAUDE.md puis docs/PROGRESS.md" |
 | Travailler sur une page | "Lis docs/frontend/PAGES.md section [nom] et docs/frontend/STYLE.md" |
 | Créer un composant | "Lis docs/frontend/COMPONENTS.md et docs/frontend/STYLE.md" |
+| Savoir quoi construire côté backend | "Lis docs/backend/TODO.md" |
 | Bug frontend rencontré | "Lis docs/frontend/ERRORS.md — j'ai ce bug : [description]" |
 | Bug backend rencontré | "Lis docs/backend/ERRORS.md — j'ai ce bug : [description]" |
 | Nouvelle décision | "Ajoute dans docs/DECISIONS.md — [sujet]" |
@@ -156,6 +159,12 @@ Ouvre une issue ou soumets une pull request.
 Toutes les contributions sont les bienvenues.
 
 Le pourquoi des choix d'architecture du template (pas ceux d'un projet qui l'utilise) est documenté dans [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## Licence
+
+[MIT](LICENSE) — libre d'utilisation, modification et redistribution, y compris commerciale.
 
 ---
 

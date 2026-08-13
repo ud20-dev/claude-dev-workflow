@@ -41,6 +41,12 @@
 - Alternative refusée : enrichir PROGRESS.md pour qu'il serve aux deux publics
 - Pourquoi refusée : un format qui sert bien Claude (terse, structuré) sert mal un humain (illisible en narration), et inversement — mieux vaut deux fichiers avec un rôle clair qu'un compromis qui ne sert bien personne
 
+### `backend/TODO.md` ajouté après usage réel sur un projet
+- Décision : nouveau fichier `backend/TODO.md`, alimenté côté frontend dès qu'une page/fonctionnalité est construite en mock faute d'endpoint (règle absolue dans CLAUDE.md), lu en priorité au début d'une tâche backend
+- Pourquoi : sur un projet frontend-first (fréquent avec Claude — l'interface avance plus vite que l'API), le mock fait à un instant T finit oublié une fois la session suivante commencée ; sans un endroit dédié, soit ce contexte se perd, soit `PROGRESS.md` s'alourdit d'un inventaire d'endpoints manquants qui n'a rien à faire dans un journal de sessions. Retenu après avoir constaté l'utilité du fichier sur un projet réel utilisant ce template (quasi une entrée par session frontend)
+- Alternative refusée : consigner les endpoints manquants directement dans `PROGRESS.md`
+- Pourquoi refusée : `PROGRESS.md` répond à "qu'est-ce qui s'est passé", pas à "qu'est-ce qu'il reste à construire" — mélanger les deux aurait fait grossir chaque session d'un rappel de tout ce qui manque encore côté backend, déjà couvert une fois pour toutes dans un fichier dédié
+
 ### 4 axes (Mémoire / Skill / Garde-fou / Onboarding) comme grille de lecture, pas comme arborescence
 - Décision : classification ajoutée dans CLAUDE.md, sans créer de dossiers `memoire/`, `skills/`, `garde-fous/`, `onboarding/`
 - Pourquoi : le découpage frontend/backend organise déjà l'espace physique et fonctionne (validé par test) ; les 4 axes répondent à une question différente ("quel type d'information, pour qui ?"), pas "où est-ce rangé physiquement ?" — les deux grilles se croisent sans se remplacer
