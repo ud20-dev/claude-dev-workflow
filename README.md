@@ -36,7 +36,7 @@ Et une séparation nette entre ce qui appartient au projet entier et ce qui appa
 Copier cette ligne et la coller à Claude au début de chaque session :
 
 ```
-Lis docs/CLAUDE.md puis docs/PROGRESS.md et dis-moi où on en est en 5 lignes maximum
+Lis docs/CLAUDE.md, vérifie les mises à jour, puis lis docs/PROGRESS.md et dis-moi où on en est en 5 lignes maximum
 ```
 
 ---
@@ -121,6 +121,16 @@ Et un réflexe CSS n'a rien à faire dans le contexte d'une tâche sur l'API.
 | Réflexe IA à corriger (backend) | "Ajoute dans docs/backend/FEEDBACK.md — [pattern]" |
 | Installer un preset de style | "Installe le preset [nom]" — copie docs/frontend/presets/[nom].md vers docs/frontend/preset-actif.md |
 | Fin de session | "Mets à jour docs/PROGRESS.md session [numéro]" |
+| Vérifier une mise à jour du template | "Vérifie si le template a une mise à jour" (fait aussi automatiquement à chaque début de session) |
+
+---
+
+## Rester à jour
+
+Chaque projet garde son propre `docs/` — rempli au fil des sessions, jamais écrasé automatiquement.
+`docs/CLAUDE.md` porte un numéro de version et vérifie tout seul, à chaque début de session, si une version plus récente du template existe.
+En cas de mise à jour disponible, Claude te préviens et attend ton accord — puis n'ajoute que ce qui manque (nouveaux fichiers, nouvelles règles). **Rien de ce que tu as déjà rempli n'est jamais modifié ou supprimé.**
+Détail de la procédure dans `docs/CLAUDE.md` > "Mise à jour du template".
 
 ---
 
@@ -138,17 +148,22 @@ Et un réflexe CSS n'a rien à faire dans le contexte d'une tâche sur l'API.
 
 ## Installation
 
-Cloner le repo :
+**Option 1 — cloner à côté du projet, puis copier `docs/` :**
 
 ```bash
 git clone https://github.com/ud20-dev/claude-dev-workflow
-```
-
-Copier le dossier docs/ à la racine de ton projet :
-
-```bash
 cp -r claude-dev-workflow/docs/ ton-projet/docs/
 ```
+
+**Option 2 — cloner directement dans le projet, puis lancer `install.sh` :**
+
+```bash
+cd ton-projet
+git clone https://github.com/ud20-dev/claude-dev-workflow
+./claude-dev-workflow/install.sh
+```
+
+Déplace `docs/` à la racine de `ton-projet` et supprime le reste de `claude-dev-workflow` (devenu inutile une fois `docs/` sorti) — évite le doublon `ton-projet/claude-dev-workflow/docs/`.
 
 ---
 

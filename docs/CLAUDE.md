@@ -1,4 +1,5 @@
 # CLAUDE
+> Version du template : 1.1.0
 > LIRE EN PREMIER. Toujours. Sans exception.
 > Ce fichier est le cerveau du projet — il n'explique rien lui-même, il oriente vers `docs/frontend/`, `docs/backend/` ou les fichiers partagés à la racine de `docs/`.
 > Ne jamais supposer le contexte — lire PROGRESS.md juste après.
@@ -8,9 +9,11 @@
 
 ## Commande de démarrage
 ```
-"Lis docs/CLAUDE.md puis docs/PROGRESS.md
+"Lis docs/CLAUDE.md, vérifie les mises à jour, puis lis docs/PROGRESS.md
 et dis-moi où on en est en 5 lignes maximum"
 ```
+
+Même sans cette formulation exacte : à chaque lecture de ce fichier en début de session → vérifier si une mise à jour du template est disponible (voir "Mise à jour du template" plus bas) avant de continuer.
 
 ---
 
@@ -163,3 +166,25 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 | Réflexe IA à corriger (backend) | "Ajoute dans backend/FEEDBACK.md — [pattern]" |
 | Installer un preset de style | "Installe le preset [nom] — copie frontend/presets/[nom].md vers frontend/preset-actif.md" |
 | Changer de preset de style | "Remplace frontend/preset-actif.md par le preset [nom]" |
+| Vérifier une mise à jour maintenant | "Vérifie si le template a une mise à jour" |
+
+---
+
+## Mise à jour du template
+> Vérifié automatiquement à chaque début de session (voir "Commande de démarrage" plus haut), ou à la demande.
+
+1. Lire la version installée — première ligne de ce fichier (`> Version du template : X.Y.Z`)
+2. Récupérer la version publiée : `curl -s https://raw.githubusercontent.com/ud20-dev/claude-dev-workflow/main/README.md | grep -m1 "Version"` (ou lire le fichier via WebFetch si `curl` n'est pas disponible)
+3. Versions identiques, ou pas de connexion réseau → ne rien dire, continuer normalement (ne jamais bloquer une session pour ça)
+4. Version publiée plus récente → informer l'utilisateur ("Le template a une mise à jour, X.Y.Z → A.B.C") et **s'arrêter là sans rien appliquer, sauf accord explicite**
+
+Si l'utilisateur accepte la mise à jour :
+1. Vérifier `git status` sur le projet — si des changements non commités existent, le dire et demander de commiter ou stasher d'abord ; ne rien appliquer sur un état de travail sale. Filet de sécurité : même en cas d'erreur dans les étapes suivantes, tout reste annulable d'un simple `git diff`/`git restore`
+2. Cloner `https://github.com/ud20-dev/claude-dev-workflow` dans un dossier temporaire
+3. Comparer `docs/CLAUDE.md` du clone avec celui du projet — repérer les nouveautés : nouveaux fichiers dans la structure, nouvelles lignes dans "Règles absolues"/"Index"/"Commandes utiles" absentes du projet. Le sens de la comparaison ne va que dans un sens : chercher ce que le **template** a en plus, jamais ce que le **projet** a en plus
+4. **Règle stricte, jamais d'exception** : uniquement AJOUTER ce qui manque — un fichier absent (ex. un futur `backend/[NOM].md`) se copie tel quel (vide) ; une ligne absente d'une table s'ajoute telle quelle. **Ne jamais modifier ni supprimer une ligne déjà présente**, même si sa formulation diffère du clone — une différence de formulation est presque toujours une adaptation volontaire faite pendant le projet, pas un oubli
+5. Toute règle, ligne ou fichier ajouté par le dev qui n'existe **pas** dans le template (règle métier propre au projet, convention personnalisée, fichier hors structure standard) reste intouché — il n'a par définition aucun équivalent dans le clone à comparer, donc rien ne le désigne jamais comme candidat à modifier
+6. Ne jamais toucher aux fichiers dont c'est le rôle de contenir la mémoire ou le contenu spécifique au projet (`STYLE.md`, `PAGES.md`, `COMPONENTS.md`, `PROGRESS.md`, `DECISIONS.md`, `CHANGELOG.md`, `SECURITY.md`, `CONTEXT.md`, `STACK.md`, `ERRORS.md`/`FEEDBACK.md` des deux couches, `preset-actif.md`, `DATABASE.md`, `TODO.md`) au-delà d'y créer le fichier s'il n'existait pas encore — jamais réécrire une ligne qui existe déjà
+7. Présenter la liste des ajouts trouvés avant de les appliquer, pas après
+8. Une fois appliqué → mettre à jour la ligne de version en haut de ce fichier, et ajouter une entrée dans `CHANGELOG.md` ("Mise à jour du template vers X.Y.Z — [ce qui a été ajouté]")
+9. Rappeler à l'utilisateur qu'il peut tout annuler avec `git restore`/`git checkout` tant qu'il n'a pas commité cette mise à jour lui-même
