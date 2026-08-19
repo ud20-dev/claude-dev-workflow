@@ -1,8 +1,7 @@
 # Bac à sable de test — sert à valider docs/, ne doit jamais être publié
 test-project/
 
-# agent stuffs
-.claude/
+!.claude/settings.local.json
 
 # editor settings
 .vscode/
