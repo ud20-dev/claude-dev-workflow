@@ -148,22 +148,24 @@ Détail de la procédure dans `docs/CLAUDE.md` > "Mise à jour du template".
 
 ## Installation
 
-**Option 1 — cloner à côté du projet, puis copier `docs/` :**
-
-```bash
-git clone https://github.com/ud20-dev/claude-dev-workflow
-cp -r claude-dev-workflow/docs/ ton-projet/docs/
-```
-
-**Option 2 — cloner directement dans le projet, puis lancer `install.sh` :**
+**Option 1 — one-liner (recommandé) :**
 
 ```bash
 cd ton-projet
-git clone https://github.com/ud20-dev/claude-dev-workflow
-./claude-dev-workflow/install.sh
+curl -fsSL https://raw.githubusercontent.com/ud20-dev/claude-dev-workflow/main/install.sh | bash
 ```
 
-Déplace `docs/` à la racine de `ton-projet` et supprime le reste de `claude-dev-workflow` (devenu inutile une fois `docs/` sorti) — évite le doublon `ton-projet/claude-dev-workflow/docs/`.
+Installe `docs/` et `.claude/` (hook `SessionStart` qui charge `docs/CLAUDE.md` et les sessions récentes automatiquement, script de migration `changelog.sh`) directement à la racine de `ton-projet`. N'écrase jamais un fichier existant — s'arrête sans rien toucher si `docs/` ou `.claude/settings.json`/`hooks`/`scripts` existent déjà.
+
+**Option 2 — clone local, sans réseau au moment de l'installation :**
+
+```bash
+git clone https://github.com/ud20-dev/claude-dev-workflow ~/claude-dev-workflow
+cd ton-projet
+~/claude-dev-workflow/install.sh
+```
+
+Même résultat que l'option 1 — `install.sh` détecte le clone local et copie `docs/`/`.claude/` depuis celui-ci plutôt que de les télécharger.
 
 ---
 
