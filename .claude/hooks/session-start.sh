@@ -11,10 +11,10 @@ SESSIONS_KEPT=3
 # 1. Version check - silent unless there's an actual update. No network / no match → say nothing.
 if [ -f "$DOCS/CLAUDE.md" ]; then
   LOCAL_VERSION=$(grep -m1 -oE '[0-9]+\.[0-9]+\.[0-9]+' "$DOCS/CLAUDE.md" 2>/dev/null)
-  REMOTE_VERSION=$(curl -s --max-time 2 "$TEMPLATE_README_URL" 2>/dev/null | grep -m1 -oE '[0-9]+\.[0-9]+\.[0-9]+')
+  REMOTE_VERSION=$(curl -sf --max-time 2 "$TEMPLATE_README_URL" 2>/dev/null | grep -m1 -oE '[0-9]+\.[0-9]+\.[0-9]+')
 
   if [ -n "$LOCAL_VERSION" ] && [ -n "$REMOTE_VERSION" ] && [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
-    echo "TEMPLATE UPDATE AVAILABLE: installed $LOCAL_VERSION, latest $REMOTE_VERSION. Mention it to the user once; only run the 'Mise à jour du template' procedure in docs/CLAUDE.md if they agree."
+    echo "TEMPLATE UPDATE AVAILABLE: installed $LOCAL_VERSION, latest $REMOTE_VERSION. Mention it to the user once; run .claude/scripts/changelog.sh for what changed and how to migrate, only apply it if they agree."
     echo "---"
   fi
 fi
