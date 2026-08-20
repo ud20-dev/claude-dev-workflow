@@ -28,3 +28,6 @@
 ---
 
 ## Journal
+
+<!-- SENTINEL: nouvelle entrée ICI, juste en dessous de cette ligne — jamais en bas du fichier -->
+

@@ -7,13 +7,10 @@
 
 ---
 
-## Commande de démarrage
-```
-"Lis docs/CLAUDE.md, vérifie les mises à jour, puis lis docs/PROGRESS.md
-et dis-moi où on en est en 5 lignes maximum"
-```
+## Démarrage de session
+> Ce fichier et `docs/PROGRESS.md` (sessions récentes uniquement) sont injectés automatiquement en début de session par un hook `SessionStart` (voir `.claude/hooks/session-start.sh`) — inutile de les redemander. Le même hook vérifie aussi en silence si une mise à jour du template est disponible et ne dit rien s'il n'y en a pas (voir "Mise à jour du template" plus bas).
 
-Même sans cette formulation exacte : à chaque lecture de ce fichier en début de session → vérifier si une mise à jour du template est disponible (voir "Mise à jour du template" plus bas) avant de continuer.
+Pour un résumé malgré tout : "Dis-moi où on en est en 5 lignes maximum".
 
 ---
 
@@ -48,6 +45,8 @@ docs/
 Règle de fond : tout ce qui définit le projet dans son ensemble (vision, décisions, progression, stack, sécurité) reste à la racine de `docs/`, lu par les deux couches. Tout ce qui est spécifique à une couche et qui grossit au fil des sessions (bugs, réflexes IA, specs d'implémentation) vit dans son propre dossier.
 
 **Projet à une seule couche** (API sans frontend, site statique sans backend) : ignorer le dossier qui ne s'applique pas — pas besoin de le supprimer, il reste simplement vide et n'est jamais lu.
+
+En dehors de `docs/`, `.claude/settings.json` et `.claude/hooks/session-start.sh` chargent automatiquement ce fichier et les sessions récentes en début de session, et `.claude/scripts/changelog.sh` affiche ce qui a changé en amont et comment migrer (voir "Mise à jour du template").
 
 ---
 
@@ -101,6 +100,7 @@ Une nouvelle information à ajouter : identifier d'abord son axe, puis chercher 
 - Chaque décision technique → `DECISIONS.md` immédiatement (partagé, jamais dupliqué par couche)
 - Chaque réflexe IA observé → `FEEDBACK.md` (frontend ou backend) immédiatement
 - Fin de session → `PROGRESS.md` obligatoirement
+- Toute entrée ajoutée à `PROGRESS.md`, `DECISIONS.md`, `ERRORS.md`, `FEEDBACK.md` ou `CHANGELOG.md` se place tout en haut de sa section, juste sous le repère `<!-- SENTINEL -->` — jamais en bas du fichier, la plus récente en premier. Dans `ERRORS.md`/`FEEDBACK.md`, les entrées `Date : —` (connaissances génériques) restent groupées après les entrées datées
 - Changement significatif (nouvelle fonctionnalité, décision qui change la direction, gros refactor) → ajouter une entrée dans `CHANGELOG.md`, en langage humain, pas en pointeurs — pas pour chaque petit commit
 - Ne jamais recréer un composant déjà dans `COMPONENTS.md` ni une table déjà dans `DATABASE.md`
 - Si une information manque → demander avant d'inventer
@@ -171,7 +171,7 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 ---
 
 ## Mise à jour du template
-> Vérifié automatiquement à chaque début de session (voir "Commande de démarrage" plus haut), ou à la demande.
+> Les étapes 1 à 3 tournent déjà en silence à chaque session dans le hook `SessionStart` (`.claude/hooks/session-start.sh`), sans coûter le moindre appel d'outil à Claude — rien n'apparaît dans le contexte tant que la version locale et la version publiée sont identiques. Seule l'étape 4 (mise à jour disponible) produit une ligne visible. Vérification manuelle possible à tout moment ("Vérifie si le template a une mise à jour") : dans ce cas seulement, exécuter les étapes 1 à 4 soi-même.
 
 1. Lire la version installée — première ligne de ce fichier (`> Version du template : X.Y.Z`)
 2. Récupérer la version publiée : `curl -s https://raw.githubusercontent.com/ud20-dev/claude-dev-workflow/main/README.md | grep -m1 "Version"` (ou lire le fichier via WebFetch si `curl` n'est pas disponible)
@@ -179,6 +179,7 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 4. Version publiée plus récente → informer l'utilisateur ("Le template a une mise à jour, X.Y.Z → A.B.C") et **s'arrêter là sans rien appliquer, sauf accord explicite**
 
 Si l'utilisateur accepte la mise à jour :
+0. Lancer `.claude/scripts/changelog.sh` — affiche le changelog amont et, pour un changement de version majeure connu (ex. 1.x → 2.x), les étapes de migration structurelle spécifiques (réordonnancement FIFO → LIFO). Le suivre en plus des étapes ci-dessous, pas à leur place — `changelog.sh` couvre la restructuration d'un fichier existant, les étapes 1-9 couvrent l'ajout de fichiers/lignes manquants
 1. Vérifier `git status` sur le projet — si des changements non commités existent, le dire et demander de commiter ou stasher d'abord ; ne rien appliquer sur un état de travail sale. Filet de sécurité : même en cas d'erreur dans les étapes suivantes, tout reste annulable d'un simple `git diff`/`git restore`
 2. Cloner `https://github.com/ud20-dev/claude-dev-workflow` dans un dossier temporaire
 3. Comparer `docs/CLAUDE.md` du clone avec celui du projet — repérer les nouveautés : nouveaux fichiers dans la structure, nouvelles lignes dans "Règles absolues"/"Index"/"Commandes utiles" absentes du projet. Le sens de la comparaison ne va que dans un sens : chercher ce que le **template** a en plus, jamais ce que le **projet** a en plus

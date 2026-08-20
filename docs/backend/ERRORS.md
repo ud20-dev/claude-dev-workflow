@@ -2,6 +2,7 @@
 > Historique de tous les bugs backend rencontrés et résolus.
 > Lire quand un bug apparaît côté serveur/API/base de données — vérifier s'il a déjà été résolu.
 > Ne jamais supprimer une entrée existante.
+> La plus récente en haut — sous les entrées `Date : —` s'il y en a, voir note plus bas.
 > Format d'ajout : "Ajoute dans backend/ERRORS.md — [description du bug]"
 
 ---
@@ -29,7 +30,9 @@
 ---
 
 ## Bugs résolus
-> Les entrées avec `Date : —` sont des connaissances génériques (vraies sur tout projet utilisant cette stack), pas des incidents d'un projet précis. Une nouvelle entrée issue d'un vrai bug rencontré doit, elle, porter une date réelle.
+> Les entrées avec `Date : —` sont des connaissances génériques (vraies sur tout projet utilisant cette stack), pas des incidents d'un projet précis — elles restent groupées en bas. Une nouvelle entrée issue d'un vrai bug rencontré porte une date réelle et s'ajoute au-dessus d'elles, la plus récente en tête.
+
+<!-- SENTINEL: nouveau bug daté ICI, juste en dessous de cette ligne — au-dessus des entrées `Date : —`, jamais en bas du fichier -->
 
 ### SQLAlchemy async — lazy loading relation non chargée
 - Date : —

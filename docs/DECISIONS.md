@@ -3,7 +3,7 @@
 > Lire avant de proposer une solution ou une technologie.
 > Si une proposition contredit une décision existante → signaler avant de continuer.
 > Ne jamais supprimer une décision existante.
-> Format d'ajout : "Ajoute dans DECISIONS.md — [sujet]"
+> La plus récente en haut. Format d'ajout : "Ajoute dans DECISIONS.md — [sujet]"
 
 ---
 
@@ -19,4 +19,6 @@
 ---
 
 ## Décisions
+
+<!-- SENTINEL: nouvelle décision ICI, juste en dessous de cette ligne — jamais en bas du fichier -->
 

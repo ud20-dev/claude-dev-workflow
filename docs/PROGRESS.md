@@ -47,6 +47,8 @@ Phase 1 — Setup & Configuration
 
 ## Sessions
 
+<!-- SENTINEL: nouvelle session ICI, juste en dessous de cette ligne — jamais en bas du fichier -->
+
 ### Session 001 — JJ/MM/AAAA
 - Fait :
 - Corrigé :

@@ -3,6 +3,7 @@
 > Différent de ERRORS.md (même dossier) : pas un bug ponctuel dans le code, un réflexe à éviter chez l'IA elle-même.
 > Lire avant toute tâche backend où un réflexe connu risque de se reproduire.
 > Ne jamais supprimer une entrée existante.
+> La plus récente en haut — sous les entrées `Date : —` s'il y en a, voir note plus bas.
 > Format d'ajout : "Ajoute dans backend/FEEDBACK.md — [pattern]"
 
 ---
@@ -22,4 +23,6 @@
 ---
 
 ## Patterns identifiés
-> Aucun pattern backend identifié pour l'instant — ce fichier se remplit au fil des sessions.
+> Aucun pattern backend identifié pour l'instant — ce fichier se remplit au fil des sessions. Les entrées avec `Date : —` (connaissances génériques) restent groupées en bas ; une nouvelle entrée datée s'ajoute au-dessus d'elles, la plus récente en tête.
+
+<!-- SENTINEL: nouveau pattern daté ICI, juste en dessous de cette ligne — au-dessus des entrées `Date : —`, jamais en bas du fichier -->
