@@ -1,22 +1,22 @@
 ---
-name: minux
-description: "Apply when sequencing an addition, refactor, or rewrite. Remove dead weight, redundant validators, and stub references first, then build on the simpler base."
+name: minmax
+description: "À appliquer lors du séquençage d'un ajout, d'un refactoring ou d'une réécriture. Retirer d'abord le poids mort, les validateurs redondants et les références orphelines, puis construire sur cette base simplifiée."
 disable-model-invocation: true
 ---
 
-# Subtract Before You Add
+# Soustraire avant d'ajouter
 
-When evolving a system, remove complexity first, then build. Deletion gives you a simpler base, which makes the next addition smaller and less brittle.
+Quand tu fais évoluer un système, retire la complexité d'abord, puis construis. Supprimer d'abord te donne une base plus simple, ce qui rend le prochain ajout plus petit et moins fragile.
 
-**Why:** Adding to a complex system compounds complexity. Removing first cuts the surface area, reveals the essential structure, and usually makes the next design obvious. Default to subtraction.
+**Pourquoi :** ajouter à un système complexe accumule la complexité. Retirer d'abord réduit la surface, révèle la structure essentielle, et rend généralement la prochaine décision de conception évidente. Privilégie la soustraction par défaut.
 
-Make simplification a continual investment. Leave the design slightly simpler and more capable behind the same or smaller surface than you found it.
+Fais de la simplification un investissement continu. Laisse la conception légèrement plus simple et plus capable derrière toi, sur une surface identique ou plus petite que celle que tu as trouvée.
 
-**The pattern:**
-- Sequence removal before construction
-- Cut before you polish (get to the minimum before investing in quality)
-- Design for observed usage, not speculative edge cases
-- No speculative validators, parsers, or guards beyond what the spec demands
-- Out-of-spec features drag validators behind them. Persistence, retry-on-startup, and schema migration each need guards to defend their inputs.
-- Simplify prompts (remove redundant instructions, excessive templates)
-- When a reference has no novel content, delete it rather than leaving a stub
+**Le principe :**
+- Séquence la suppression avant la construction
+- Coupe avant de polir (atteins le minimum avant d'investir dans la qualité)
+- Conçois pour l'usage observé, pas pour des cas limites spéculatifs
+- Pas de validateurs, parseurs ou garde-fous spéculatifs au-delà de ce que la spec exige
+- Les fonctionnalités hors spec traînent des validateurs derrière elles. La persistance, la relance au démarrage et la migration de schéma ont chacune besoin de garde-fous pour défendre leurs entrées.
+- Simplifie les prompts (retire les instructions redondantes, les templates excessifs)
+- Quand une référence n'apporte aucun contenu nouveau, supprime-la plutôt que de la laisser comme référence orpheline
