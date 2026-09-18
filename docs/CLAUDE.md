@@ -1,9 +1,10 @@
 # CLAUDE
-> Version du template : 2.3.0
+> Version du template : 2.4.0
 > LIRE EN PREMIER. Toujours. Sans exception.
 > Ce fichier est le cerveau du projet — il n'explique rien lui-même, il oriente vers `docs/frontend/`, `docs/backend/` ou les fichiers partagés à la racine de `docs/`.
 > Ne jamais supposer le contexte — lire `docs/frontend/PROGRESS.md` et/ou `docs/backend/PROGRESS.md` selon la couche juste après.
 > Ne pas résumer ce fichier. L'appliquer.
+> **Ce fichier change rarement, par design.** Un réflexe IA, un bug, une décision technique ou un composant ne s'ajoutent jamais ici — ils vont dans `FEEDBACK.md`/`ERRORS.md`/`DECISIONS.md`/`COMPONENTS.md`, qui gèrent déjà la concurrence entre couches (SENTINEL/LIFO, fichiers séparés par couche). Ce fichier n'est retouché que pour un vrai changement structurel (nouveau fichier dans `docs/`, nouvelle route d'aiguillage) — sinon, deux couches qui l'éditent en parallèle recréent exactement le conflit git que le split de `PROGRESS.md` a été construit pour éliminer, sur un fichier qui n'a pas ce filet.
 
 ---
 

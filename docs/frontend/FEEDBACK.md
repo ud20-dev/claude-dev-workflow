@@ -37,9 +37,9 @@
 ### Camouflage CSS au lieu de corriger la cause
 - Date : —
 - Contexte : correction d'un élément d'interface cassé visuellement (ex. bordure double, cercle, bouton qui ne se comporte pas comme prévu)
-- Réflexe observé : au lieu de retirer la classe DaisyUI ou l'élément non-sémantique responsable, l'IA empile du CSS par-dessus pour masquer le symptôme (`rounded-xl`, `focus:outline-none`, overrides en cascade sur une classe qui gère déjà cette propriété)
+- Réflexe observé : au lieu de retirer la classe/le composant de librairie ou l'élément non-sémantique responsable, l'IA empile du CSS par-dessus pour masquer le symptôme (`rounded-xl`, `focus:outline-none`, overrides en cascade sur une classe qui gère déjà cette propriété)
 - Pourquoi c'est un problème : le conflit sous-jacent reste présent et ressurgit à la prochaine modification ; le code accumule des overrides inutiles ; l'élément a l'air correct mais ne se comporte pas comme un vrai élément HTML (ex. `<div onClick>` au lieu de `<button>`)
-- Correction attendue : voir la règle "No Camouflage" dans STYLE.md — choisir DaisyUI ou Tailwind pur, jamais les deux en conflit ; toujours utiliser l'élément HTML sémantique réel (`<button>`, `<label>`, `<a>`)
+- Correction attendue : voir la règle "No Camouflage" dans STYLE.md — choisir un seul système de style cohérent (ex. une seule librairie CSS, jamais deux en conflit sur le même élément — détail exact selon la stack dans `frontend/preset-actif.md`) ; toujours utiliser l'élément HTML sémantique réel (`<button>`, `<label>`, `<a>`)
 
 ### Dérive de style entre pages au lieu de réutiliser l'existant
 - Date : —

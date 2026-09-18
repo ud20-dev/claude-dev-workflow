@@ -62,14 +62,6 @@
 - Cause : en CSS, un saut de ligne + espace dans un sélecteur crée un **combinateur descendant**. Le sélecteur `input:not(...)\n  :not(...)` est interprété comme "élément `:not(...)` enfant d'un `input`" — ce qui ne matche rien
 - Solution : **toujours mettre le sélecteur complet sur une seule ligne**, ne jamais couper une chaîne de pseudo-classes `:not()` avec un retour à la ligne
 
-### Inputs / Selects transparents sur mobile (DaisyUI v5)
-- Date : —
-- Stack concernée : Tailwind + DaisyUI v5 uniquement — non applicable sans DaisyUI
-- Fichier concerné : `globals.css` + tout fichier avec `<input>`, `<select>`, `<textarea>`
-- Symptôme : champs de texte transparents sur Android (WebView, Samsung Browser, Chrome Mobile)
-- Cause : DaisyUI v5 utilise `oklch()` pour les couleurs CSS. Certains navigateurs mobiles ne supportent pas oklch → `background-color` tombe à `transparent`
-- Solution : voir `frontend/presets/tailwind-daisyui.md` — section "Fix obligatoire — Inputs transparents"
-
 ### Validation HTML5 native bloque la logique JS custom
 - Date : —
 - Fichier concerné : tout `<form>` avec un `<input type="email">` (ou `required`/`pattern`) et une validation custom dans `onSubmit`
@@ -77,10 +69,9 @@
 - Cause : le navigateur bloque l'événement `submit` avant qu'il n'atteigne React tant que la contrainte HTML5 native n'est pas respectée — `onSubmit` n'est jamais appelé
 - Solution : ajouter `noValidate` sur le `<form>` pour désactiver la validation native et garder le contrôle complet des états côté React
 
-### Placeholder indiscernable d'une vraie valeur (fix oklch)
+### Placeholder indiscernable d'une vraie valeur, après un fix `!important` large sur `color`
 - Date : —
-- Stack concernée : Tailwind + DaisyUI v5 pour cette cause précise (le principe — toujours définir `::placeholder` séparément — reste valable sur toute stack, voir `frontend/presets/css-pur.md`)
-- Fichier concerné : `globals.css` — la règle 1 du "Fix obligatoire — Inputs transparents" dans `frontend/presets/tailwind-daisyui.md`
-- Symptôme : le texte du `placeholder` s'affiche en noir plein, identique visuellement à une valeur réellement tapée par l'utilisateur
-- Cause : la règle 1 force `color: #111111 !important` sur l'élément `input` entier pour contourner le bug oklch — sans règle `::placeholder` dédiée, le placeholder hérite de ce même noir au lieu du gris clair par défaut du navigateur
-- Solution : ajouter une règle `::placeholder` séparée (même sélecteur, même contrainte "une seule ligne") avec une couleur plus claire (`#9ca3af`) — voir `frontend/presets/tailwind-daisyui.md`
+- Fichier concerné : tout fichier CSS où une règle `!important` sur `color` cible un `<input>`/`<select>`/`<textarea>` sans distinguer le champ vide
+- Symptôme : le texte du `placeholder` s'affiche dans la même couleur qu'une vraie valeur tapée par l'utilisateur — indiscernables visuellement
+- Cause : un override `color: [couleur] !important` sur l'élément entier s'applique aussi au pseudo-élément `::placeholder` par héritage, sauf règle dédiée
+- Solution : toujours ajouter une règle `::placeholder` séparée (même sélecteur) avec une couleur plus claire que le texte réel — voir `frontend/preset-actif.md` pour le détail exact selon la stack installée (ex. le fix "inputs transparents" du preset `tailwind-daisyui`)

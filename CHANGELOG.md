@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-09-18
+
+### Added
+
+- `docs/CLAUDE.md`: banner stating the file changes rarely by design — a reflex, bug, decision, or component never gets added there, only real structural changes (new file, new routing entry). Found via real usage: repeated git conflicts on `docs/CLAUDE.md` in pull requests when a frontend and backend dev both added a line in parallel — the fix belongs in `FEEDBACK.md`/`ERRORS.md`/`DECISIONS.md`/`COMPONENTS.md`, which already handle concurrent edits.
+
+### Changed
+
+- `docs/frontend/ERRORS.md`/`FEEDBACK.md`: removed two DaisyUI-specific entries and generalized a third — this content ships to every project regardless of stack, but was duplicating (word-for-word, in one case) content that already lives in `frontend/presets/tailwind-daisyui.md`, its correct home. A project on `css-pur` or `tailwind-only` was inheriting an inapplicable bug report.
+
 ## [2.3.0] - 2026-09-18
 
 ### Added

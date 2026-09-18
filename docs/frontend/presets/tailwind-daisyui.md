@@ -41,7 +41,6 @@ opacity-40 cursor-not-allowed
 ## Fix inputs transparents / placeholder
 
 > **Obligatoire pour cette stack.** Cause : DaisyUI v5 utilise `oklch()`. Certains navigateurs Android ne supportent pas oklch → fond transparent, texte invisible.
-> Bug documenté dans `frontend/ERRORS.md` ("Inputs / Selects transparents sur mobile (DaisyUI v5)", "Placeholder indiscernable d'une vraie valeur").
 
 **Triple protection dans `globals.css` (ne jamais supprimer ni modifier) :**
 

@@ -8,6 +8,13 @@
 
 <!-- SENTINEL: nouvelle session ICI, juste en dessous de cette ligne — jamais en bas du fichier -->
 
+### Session 006 — 18/09/2026
+- Fait : suite au même retour d'usage — deux problèmes réels supplémentaires signalés par l'utilisateur. (1) Conflits git répétés sur `docs/CLAUDE.md` en pull request quand frontend/backend y ajoutent chacun une ligne en parallèle → bandeau ajouté clarifiant que ce fichier change rarement par design, un réflexe/bug/décision/composant va dans FEEDBACK/ERRORS/DECISIONS/COMPONENTS, pas ici. (2) Contenu spécifique DaisyUI trouvé baké en dur dans `frontend/ERRORS.md` (2 entrées entières, dupliquées mot pour mot avec `presets/tailwind-daisyui.md`) et `frontend/FEEDBACK.md` (une phrase) — supprimé/généralisé, ces fichiers partent avec tout projet peu importe la stack. Version publiée 2.4.0
+- Corrigé : rien (pas de bug ce round, clarifications + retrait de contenu spécifique à une stack)
+- Bloqué sur : rien
+- Prochaine étape : rien d'identifié
+- Fichier à lire en priorité : CONTRIBUTING.md — deux nouvelles entrées de décision
+
 ### Session 005 — 18/09/2026
 - Fait : intégration d'un retour d'usage réel du template sur un autre projet (audit détaillé fourni par l'utilisateur — pas ce repo). 5 correctifs génériques appliqués à `docs/CLAUDE.md` : règle "docs/ est la seule mémoire qui compte" (ambiguïté mémoire jamais tranchée avant), réapplication explicite de l'Aiguillage à chaque pivot de sujet, déclaration de vérification visible avant de créer un fichier avec registre dédié, rituel "fin de tâche" distinct de "fin de session" pour ERRORS/CHANGELOG, règle "tout nouveau fichier structurel s'ajoute à Structure + Index dans le même changement". Nouveau hook `PreToolUse` (`.claude/hooks/pre-tool-use.sh`, câblé dans `settings.json`) qui affiche un rappel ciblé selon le chemin touché à chaque Write/Edit — jamais de blocage, testé sur entrées réalistes et cassées. Version publiée 2.3.0
 - Corrigé : rien (pas de bug ce round, ajout de règles + mécanisme)
