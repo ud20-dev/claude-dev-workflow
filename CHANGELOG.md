@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-09-18
+
+### Added
+
+- `.claude/hooks/pre-tool-use.sh`: new `PreToolUse` hook on Write/Edit that prints a targeted reminder based on the file path being touched (a path under `components/` → check `COMPONENTS.md`; a code file → does this need `ERRORS.md`/`CHANGELOG.md`; a schema/migration path → check `backend/DATABASE.md`). Never blocks — always exits 0, silent on no match or unreadable input. Wired into `.claude/settings.json`.
+- `docs/CLAUDE.md`: explicit rule that `docs/` is the only memory that counts for a project — any AI memory system that persists across projects must never hold project-specific facts, only general collaboration habits.
+- `docs/CLAUDE.md` > "Aiguillage": now states explicitly that the routing table re-applies at every topic switch within a session, not only at session start.
+- `docs/CLAUDE.md` > "Règles absolues": explicit-verification rule (state "COMPONENTS.md vérifié" or equivalent in the response before creating a file with a dedicated registry) and an end-of-*task* rule for `ERRORS.md`/`CHANGELOG.md`, distinct from the existing end-of-*session* rule for PROGRESS.md.
+- `docs/CLAUDE.md` > "Structure du dossier docs/": a new structural file must be added to the tree diagram and the "Index" table in the same change that creates it — found via a real audit where 5 project files (`API.md`, `INTERNAL.md`, `PROGRESS-archive.md`, two backend files) existed on disk but nowhere in the orchestrator's map.
+
 ## [2.2.0] - 2026-08-31
 
 ### Added

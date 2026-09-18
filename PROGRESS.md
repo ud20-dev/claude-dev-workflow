@@ -8,6 +8,13 @@
 
 <!-- SENTINEL: nouvelle session ICI, juste en dessous de cette ligne — jamais en bas du fichier -->
 
+### Session 005 — 18/09/2026
+- Fait : intégration d'un retour d'usage réel du template sur un autre projet (audit détaillé fourni par l'utilisateur — pas ce repo). 5 correctifs génériques appliqués à `docs/CLAUDE.md` : règle "docs/ est la seule mémoire qui compte" (ambiguïté mémoire jamais tranchée avant), réapplication explicite de l'Aiguillage à chaque pivot de sujet, déclaration de vérification visible avant de créer un fichier avec registre dédié, rituel "fin de tâche" distinct de "fin de session" pour ERRORS/CHANGELOG, règle "tout nouveau fichier structurel s'ajoute à Structure + Index dans le même changement". Nouveau hook `PreToolUse` (`.claude/hooks/pre-tool-use.sh`, câblé dans `settings.json`) qui affiche un rappel ciblé selon le chemin touché à chaque Write/Edit — jamais de blocage, testé sur entrées réalistes et cassées. Version publiée 2.3.0
+- Corrigé : rien (pas de bug ce round, ajout de règles + mécanisme)
+- Bloqué sur : rien
+- Prochaine étape : le constat n°1 de l'audit (fichiers `API.md`/`INTERNAL.md`/etc. absents de la carte) était spécifique à l'autre projet — pas notre affaire ici, mais bon test que la nouvelle règle "structure + index dans le même changement" empêche la récidive côté template
+- Fichier à lire en priorité : CONTRIBUTING.md — deux nouvelles entrées de décision, tout le raisonnement et les alternatives refusées y sont
+
 ### Session 004 — 31/08/2026
 - Fait : nouvelle entrée générique dans `docs/frontend/FEEDBACK.md` — mélange hauteur de section en viewport (`svh`/`vh`/`min-h-screen`) et contenu à hauteur fixe en px, invisible sur petit écran, casse sur grand écran. Version publiée 2.2.0 (README + `docs/CLAUDE.md` alignés, `CHANGELOG.md` `[Unreleased]` → `[2.2.0]` daté)
 - Corrigé : rien (pas de bug ce round, ajout de contenu seulement)

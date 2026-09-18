@@ -1,5 +1,5 @@
 # CLAUDE
-> Version du template : 2.2.0
+> Version du template : 2.3.0
 > LIRE EN PREMIER. Toujours. Sans exception.
 > Ce fichier est le cerveau du projet — il n'explique rien lui-même, il oriente vers `docs/frontend/`, `docs/backend/` ou les fichiers partagés à la racine de `docs/`.
 > Ne jamais supposer le contexte — lire `docs/frontend/PROGRESS.md` et/ou `docs/backend/PROGRESS.md` selon la couche juste après.
@@ -48,7 +48,9 @@ Règle de fond : tout ce qui définit le projet dans son ensemble (vision, déci
 
 **Projet à une seule couche** (API sans frontend, site statique sans backend) : ignorer le dossier qui ne s'applique pas — pas besoin de le supprimer, il reste simplement vide et n'est jamais lu.
 
-En dehors de `docs/`, `.claude/settings.json` et `.claude/hooks/session-start.sh` chargent automatiquement ce fichier et les sessions récentes en début de session, `.claude/scripts/changelog.sh` affiche ce qui a changé en amont et comment migrer, et `.claude/scripts/apply-update.sh` applique automatiquement la partie mécanique d'une mise à jour (voir "Mise à jour du template").
+**Tout nouveau fichier structurel** ajouté à `docs/` au-delà de cette liste (ex. `API.md`, `INTERNAL.md`, un fichier `backend/[NOM].md` propre au projet) doit être ajouté **dans le même changement** à cette arborescence et à la table "Index — quand lire quoi" ci-dessous, avec sa ligne "lire quand". Un fichier qui existe sur disque mais n'apparaît dans aucun des deux est invisible pour toute tâche future, même appliquée à la lettre — la carte doit rester exacte, pas seulement le territoire.
+
+En dehors de `docs/`, `.claude/settings.json` et `.claude/hooks/session-start.sh` chargent automatiquement ce fichier et les sessions récentes en début de session, `.claude/hooks/pre-tool-use.sh` affiche un rappel ciblé avant chaque écriture/édition de fichier selon le chemin touché (ex. un fichier dans `components/` rappelle de vérifier `COMPONENTS.md` — jamais de blocage, juste un rappel visible au bon moment plutôt qu'une règle textuelle livrée à l'auto-discipline), `.claude/scripts/changelog.sh` affiche ce qui a changé en amont et comment migrer, et `.claude/scripts/apply-update.sh` applique automatiquement la partie mécanique d'une mise à jour (voir "Mise à jour du template").
 
 ---
 
@@ -105,6 +107,7 @@ Une nouvelle information à ajouter : identifier d'abord son axe, puis chercher 
 > Chaque ligne est un déclencheur + un pointeur — le détail et le "pourquoi" vivent dans le fichier référencé, jamais ici.
 
 - Lire uniquement le fichier ciblé — jamais tout `docs/` ni tout un sous-dossier `frontend/`/`backend/` en bloc
+- `docs/` est la seule mémoire qui compte pour ce projet. Si l'IA a par ailleurs un système de mémoire personnel qui persiste entre projets, il ne doit jamais contenir d'information spécifique à *ce* projet (nom, décisions, bugs, préférences produit) — seulement des habitudes de collaboration générales, valables ailleurs aussi. Une info spécifique au projet retenue hors de `docs/` est une info qu'une future session ne verra jamais
 - Ne jamais toucher la branche main directement
 - Frontend : `STYLE.md` + `preset-actif.md` toujours ensemble ; `presets/` n'est jamais lu pour une tâche ; si `preset-actif.md` n'existe pas → demander avant de coder une valeur stack-spécifique
 - Avant de styliser un bouton/carte/input → vérifier STYLE.md + COMPONENTS.md, jamais de valeur "proche" — voir FEEDBACK.md ("Dérive de style entre pages")
@@ -115,6 +118,8 @@ Une nouvelle information à ajouter : identifier d'abord son axe, puis chercher 
 - Page/fonctionnalité frontend construite en mock faute d'endpoint → `backend/TODO.md` immédiatement (endpoint attendu, rôle requis, forme de données déjà utilisée côté frontend) — une fois l'endpoint construit et branché, retirer l'entrée ou la réduire à une ligne dans `backend/PROGRESS.md`
 - Chaque décision technique → `DECISIONS.md` immédiatement (partagé, jamais dupliqué par couche)
 - Chaque réflexe IA observé → `FEEDBACK.md` (frontend ou backend) immédiatement
+- Avant de créer un fichier dans une catégorie qui a un registre dédié (composant → `COMPONENTS.md`, table → `DATABASE.md`, page → `PAGES.md`) → déclarer explicitement dans la réponse que le registre a été vérifié (ex. "COMPONENTS.md vérifié — aucun composant existant ne convient"). Pas pour se justifier après coup : pour que l'omission soit visible dans la réponse elle-même plutôt qu'invisible
+- Fin de **tâche**, pas seulement fin de session → `ERRORS.md`/`CHANGELOG.md` si applicable, tout de suite, pas reporté. Une session dure parfois plusieurs jours et plusieurs tâches distinctes ; attendre la fin de session pour ces mises à jour revient souvent à ne jamais les faire
 - Fin de session → `frontend/PROGRESS.md` ou `backend/PROGRESS.md` selon la couche, obligatoirement
 - Ne jamais éditer `docs/PROGRESS.md` (racine) à la main — fichier généré, voir "Fusion des PROGRESS.md"
 - Toute entrée ajoutée à `frontend/PROGRESS.md`, `backend/PROGRESS.md`, `DECISIONS.md`, `ERRORS.md`, `FEEDBACK.md` ou `CHANGELOG.md` se place tout en haut de sa section, juste sous le repère `<!-- SENTINEL -->` — jamais en bas du fichier, la plus récente en premier. Dans `ERRORS.md`/`FEEDBACK.md`, les entrées `Date : —` (connaissances génériques) restent groupées après les entrées datées
@@ -126,6 +131,7 @@ Une nouvelle information à ajouter : identifier d'abord son axe, puis chercher 
 
 ## Aiguillage — quelle couche avant tout
 > Première question à se poser sur toute tâche, avant d'ouvrir un fichier. Détermine quel dossier lire.
+> Se réapplique à **chaque nouveau sous-sujet** abordé en cours de conversation, pas seulement au tout début de la session — une session qui commence sur du frontend et bascule sur un bug backend repasse par cette table au moment du bascule, pas seulement à l'ouverture de la session.
 
 | La tâche touche… | Couche | Dossier / fichiers à lire |
 |---|---|---|
