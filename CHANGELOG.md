@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-09-18
+
+### Changed
+
+- `docs/frontend/ERRORS.md`/`FEEDBACK.md`/`docs/CLAUDE.md`: found by a post-release supervision agent right after 2.4.0 — unhedged React/JS-framework-specific wording left in seed content that ships to every project regardless of frontend framework (`useEffect`, "crash React", "côté React", Index table listing "React" as an example bug category). Generalized to framework-neutral wording, same fix as the DaisyUI cleanup in 2.4.0, same underlying principle just missed on the JS side.
+- `CHANGELOG.md`/`PROGRESS.md` (root): the [2.4.0] entry and its session log overstated the DaisyUI removal (said 2 entries removed + 1 generalized; it was actually 1 removed + 2 generalized). Corrected for accuracy.
+
 ## [2.4.0] - 2026-09-18
 
 ### Added
@@ -15,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `docs/frontend/ERRORS.md`/`FEEDBACK.md`: removed two DaisyUI-specific entries and generalized a third — this content ships to every project regardless of stack, but was duplicating (word-for-word, in one case) content that already lives in `frontend/presets/tailwind-daisyui.md`, its correct home. A project on `css-pur` or `tailwind-only` was inheriting an inapplicable bug report.
+- `docs/frontend/ERRORS.md`/`FEEDBACK.md`: removed one DaisyUI-specific entry and generalized two others — this content ships to every project regardless of stack, but was duplicating (word-for-word, in the removed case) content that already lives in `frontend/presets/tailwind-daisyui.md`, its correct home. A project on `css-pur` or `tailwind-only` was inheriting an inapplicable bug report.
 
 ## [2.3.0] - 2026-09-18
 

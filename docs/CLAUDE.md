@@ -1,5 +1,5 @@
 # CLAUDE
-> Version du template : 2.4.0
+> Version du template : 2.5.0
 > LIRE EN PREMIER. Toujours. Sans exception.
 > Ce fichier est le cerveau du projet — il n'explique rien lui-même, il oriente vers `docs/frontend/`, `docs/backend/` ou les fichiers partagés à la racine de `docs/`.
 > Ne jamais supposer le contexte — lire `docs/frontend/PROGRESS.md` et/ou `docs/backend/PROGRESS.md` selon la couche juste après.
@@ -165,7 +165,7 @@ Si le doute persiste après cette table → demander à l'utilisateur plutôt qu
 | backend/TODO.md | Début d'une tâche backend (savoir quoi construire en priorité) ; côté frontend, dès qu'une page est faite en mock faute d'endpoint |
 | frontend/PAGES.md | Création ou modification d'une page — lire uniquement la section concernée |
 | frontend/COMPONENTS.md | Création ou modification d'un composant |
-| frontend/ERRORS.md | Bug frontend (UI, CSS, React) — vérifier si déjà résolu |
+| frontend/ERRORS.md | Bug frontend (UI, CSS, JS) — vérifier si déjà résolu |
 | backend/ERRORS.md | Bug backend (API, base de données, auth) — vérifier si déjà résolu |
 | frontend/FEEDBACK.md | Avant une tâche frontend où un réflexe IA connu pourrait se reproduire |
 | backend/FEEDBACK.md | Avant une tâche backend où un réflexe IA connu pourrait se reproduire |

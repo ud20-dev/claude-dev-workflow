@@ -29,9 +29,9 @@
 
 ### Fix CSS large validé sans revérifier les états voisins
 - Date : 08/07/2026
-- Contexte : application d'un correctif CSS avec `!important` sur un sélecteur large pour régler un bug visuel précis (ex. fond transparent sur mobile causé par oklch — voir ERRORS.md)
+- Contexte : application d'un correctif CSS avec `!important` sur un sélecteur large pour régler un bug visuel précis (ex. un fond transparent sur mobile causé par un problème de rendu de couleur — voir `frontend/ERRORS.md` et `frontend/preset-actif.md` pour le détail exact selon la stack)
 - Réflexe observé : le correctif est considéré terminé dès que le bug ciblé disparaît, sans revérifier visuellement les états et pseudo-éléments voisins qui héritent de la même propriété (`::placeholder`, `:disabled`, `::selection`, `:focus-visible`, `:hover`) — le nouveau bug introduit reste invisible parce que personne ne regarde le rendu après coup
-- Pourquoi c'est un problème : un override `!important` a toujours un rayon d'effet plus large que le bug visé. Sans vérification visuelle après le fix, un nouveau défaut remplace l'ancien sans être détecté — observé concrètement quand le fix oklch de STYLE.md a rendu le `::placeholder` indiscernable d'une vraie saisie. C'est le pattern qui revient le plus souvent, tous projets confondus
+- Pourquoi c'est un problème : un override `!important` a toujours un rayon d'effet plus large que le bug visé. Sans vérification visuelle après le fix, un nouveau défaut remplace l'ancien sans être détecté — observé concrètement quand un fix de ce type a rendu le `::placeholder` indiscernable d'une vraie saisie (voir `frontend/ERRORS.md`). C'est le pattern qui revient le plus souvent, tous projets confondus
 - Correction attendue : après tout override CSS `!important` ou tout sélecteur large, lister les pseudo-classes/pseudo-éléments qui héritent de la propriété modifiée et les vérifier un par un dans le navigateur (ou capture d'écran) avant de considérer le fix terminé — ne jamais valider un correctif CSS seulement parce que le symptôme initial a disparu
 
 ### Camouflage CSS au lieu de corriger la cause

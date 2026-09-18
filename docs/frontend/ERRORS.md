@@ -36,17 +36,17 @@
 
 ### Frontend — loading infini si API inaccessible
 - Date : —
-- Fichier concerné : tout composant avec un `fetch()` dans un `useEffect`
+- Fichier concerné : tout composant qui charge des données de façon asynchrone au montage (ex. `fetch()` dans un hook/lifecycle de chargement, quel que soit le framework)
 - Symptôme : page bloquée sur "Chargement…" si le backend ne répond pas
-- Cause : aucun `try/catch` dans les fonctions de chargement — si `fetch()` lève une exception, `setLoading(false)` n'est jamais appelé
+- Cause : aucun `try/catch` dans les fonctions de chargement — si `fetch()` lève une exception, l'état "en chargement" n'est jamais remis à jour
 - Solution : entourer tous les appels fetch d'un `try/catch`, afficher un message d'erreur avec bouton "Réessayer"
 
 ### Frontend — render crash si API retourne un objet non-tableau
 - Date : —
-- Fichier concerné : tout composant qui fait `setState(await res.json())`
-- Symptôme : crash React "map is not a function" quand l'API retourne une erreur 500
-- Cause : `setState(data)` sans vérifier `Array.isArray(data)`
-- Solution : utiliser `Array.isArray(data) ? data : []` à chaque setState sur une liste
+- Fichier concerné : tout composant qui assigne directement `await res.json()` à son état local
+- Symptôme : crash JS type "map is not a function" (ou équivalent selon le framework) quand l'API retourne une erreur 500
+- Cause : la réponse est assignée à l'état sans vérifier `Array.isArray(data)`
+- Solution : utiliser `Array.isArray(data) ? data : []` avant toute mise à jour d'état qui attend une liste
 
 ### Pages client — scroll indésirable sur mobile
 - Date : —
@@ -66,8 +66,8 @@
 - Date : —
 - Fichier concerné : tout `<form>` avec un `<input type="email">` (ou `required`/`pattern`) et une validation custom dans `onSubmit`
 - Symptôme : l'état d'erreur custom ne s'affiche jamais, le formulaire semble ignorer une saisie invalide
-- Cause : le navigateur bloque l'événement `submit` avant qu'il n'atteigne React tant que la contrainte HTML5 native n'est pas respectée — `onSubmit` n'est jamais appelé
-- Solution : ajouter `noValidate` sur le `<form>` pour désactiver la validation native et garder le contrôle complet des états côté React
+- Cause : le navigateur bloque l'événement `submit` avant qu'il n'atteigne le gestionnaire JS applicatif tant que la contrainte HTML5 native n'est pas respectée — `onSubmit` n'est jamais appelé
+- Solution : ajouter `noValidate` sur le `<form>` pour désactiver la validation native et garder le contrôle complet de la validation côté JS
 
 ### Placeholder indiscernable d'une vraie valeur, après un fix `!important` large sur `color`
 - Date : —

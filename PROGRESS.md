@@ -8,8 +8,15 @@
 
 <!-- SENTINEL: nouvelle session ICI, juste en dessous de cette ligne — jamais en bas du fichier -->
 
+### Session 007 — 18/09/2026
+- Fait : supervision post-publication de la 2.4.0 par 2 agents en parallèle (cohérence du round DaisyUI + mécanisme de mise à jour bout-en-bout contre le repo publié). Un agent a trouvé le même problème que DaisyUI mais côté JS : `useEffect`, "crash React", "côté React" non-hedgés dans `frontend/ERRORS.md`/`FEEDBACK.md`, et "React" cité comme exemple dans le tableau Index de `docs/CLAUDE.md` — généralisé en langage neutre vis-à-vis du framework JS, même principe que le nettoyage DaisyUI. A aussi trouvé une erreur de comptage dans le `CHANGELOG.md`/`PROGRESS.md` de la session 006 (disait 2 entrées supprimées + 1 généralisée, c'était 1 + 2) — corrigé. Version publiée 2.5.0
+- Corrigé : rien de fonctionnel (précisions de langage + erreur de comptage dans la doc)
+- Bloqué sur : rien
+- Prochaine étape : attendre le retour du 2e agent (vérification bout-en-bout d'`apply-update.sh`/`changelog.sh` contre le repo publié) — pas encore revenu au moment de ce commit
+- Fichier à lire en priorité : CHANGELOG.md — entrée [2.5.0]
+
 ### Session 006 — 18/09/2026
-- Fait : suite au même retour d'usage — deux problèmes réels supplémentaires signalés par l'utilisateur. (1) Conflits git répétés sur `docs/CLAUDE.md` en pull request quand frontend/backend y ajoutent chacun une ligne en parallèle → bandeau ajouté clarifiant que ce fichier change rarement par design, un réflexe/bug/décision/composant va dans FEEDBACK/ERRORS/DECISIONS/COMPONENTS, pas ici. (2) Contenu spécifique DaisyUI trouvé baké en dur dans `frontend/ERRORS.md` (2 entrées entières, dupliquées mot pour mot avec `presets/tailwind-daisyui.md`) et `frontend/FEEDBACK.md` (une phrase) — supprimé/généralisé, ces fichiers partent avec tout projet peu importe la stack. Version publiée 2.4.0
+- Fait : suite au même retour d'usage — deux problèmes réels supplémentaires signalés par l'utilisateur. (1) Conflits git répétés sur `docs/CLAUDE.md` en pull request quand frontend/backend y ajoutent chacun une ligne en parallèle → bandeau ajouté clarifiant que ce fichier change rarement par design, un réflexe/bug/décision/composant va dans FEEDBACK/ERRORS/DECISIONS/COMPONENTS, pas ici. (2) Contenu spécifique DaisyUI trouvé baké en dur dans `frontend/ERRORS.md` (1 entrée entière, dupliquée mot pour mot avec `presets/tailwind-daisyui.md`, supprimée) et `frontend/FEEDBACK.md` (une phrase, généralisée) — ces fichiers partent avec tout projet peu importe la stack. Version publiée 2.4.0. Vérifié après coup par un agent de supervision : le compte exact était faux dans ce journal et dans `CHANGELOG.md` au moment de la publication (corrigé depuis) ; l'agent a aussi trouvé du contenu React non-hedgé oublié par ce round, traité en session 007
 - Corrigé : rien (pas de bug ce round, clarifications + retrait de contenu spécifique à une stack)
 - Bloqué sur : rien
 - Prochaine étape : rien d'identifié
